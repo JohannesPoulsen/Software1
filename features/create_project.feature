@@ -8,18 +8,12 @@ Scenario: A first project is created
 	When the user creates a project without giving it a title
 	Then a project with the ID "220001" is created
 	
-#Scenario: A project without a title is created with there being an existing project without a title
-#	Given there is a project without a name specified
-#	When the user creates a project without giving it a title
-#	Then a project without a title is created
-#	And the project is given a specific ID
-#	
-#Scenario: A project with a title is created
-#	Given there is no other project with the title "Project 1"
-#	When the user creates a project with the title "Project 1"
-#	Then a project is created with the title "Project 1"
-#	And the project is given a specific ID
-#	
+
+Scenario: A project with a title is created
+	Given there is no other project with the title "Project 1"
+	When the user creates a project with the title "Project 1"
+	Then a project is created with the title "Project 1"
+	
 #Scenario: Creating a project with an already existing project title
 #	Given there is a project with the title: "Project 1"
 #	When the user creates a new project with the title "Project 1"

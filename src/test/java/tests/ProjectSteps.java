@@ -1,5 +1,6 @@
 package tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.cucumber.java.en.Given;
@@ -32,13 +33,30 @@ public class ProjectSteps {
 	
 	@When("the user creates a project without giving it a title")
 	public void the_user_creates_a_project_without_giving_it_a_title() {
-	    application.createProject();
+		Project project = new Project();
+	    application.addProject(project);
 	}
 	
 	@Then("a project with the ID {string} is created")
 	public void a_project_with_the_id_is_created(String id) {
 	   assertTrue(application.projectExistsWithId(id));
 	}
+	@Given("there is no other project with the title {string}")
+	public void there_is_no_other_project_with_the_title(String name) {
+	    assertFalse(application.doesProjectExist(name));
+	}
+
+	@When("the user creates a project with the title {string}")
+	public void the_user_creates_a_project_with_the_title(String name) {
+		Project project1 = new Project(name);
+	    application.addProject(project1);
+	}
+
+	@Then("a project is created with the title {string}")
+	public void a_project_is_created_with_the_title(String name) {
+		assertTrue(application.doesProjectExist(name));
+	}
+
 
 }
 

@@ -1,4 +1,4 @@
-package dtu.calculator;
+package tests;
 
 
 import org.junit.runner.RunWith;

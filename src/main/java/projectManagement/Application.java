@@ -2,7 +2,6 @@ package projectManagement;
 
 import java.util.ArrayList;
 
-
 public class Application {
 
 	public ArrayList<Project> projects;

@@ -1,4 +1,3 @@
-
 Feature: Create activity
 	Description: An activity is created
 	Actors: All

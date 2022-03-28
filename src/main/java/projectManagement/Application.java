@@ -2,6 +2,7 @@ package projectManagement;
 
 import java.util.ArrayList;
 
+
 public class Application {
 
 	public ArrayList<Project> projects;
@@ -10,8 +11,13 @@ public class Application {
 		projects = new ArrayList<Project>();
 	}
 
-	public void addProject(Project project) {
-		projects.add(project);
+	public void addProject(Project project) throws Exception {
+		if(!doesProjectExist(project.getName())) {
+			projects.add(project);			
+		}
+		else {
+			throw new Exception("Project with specified name already exists");
+		}
 	}
 	
 	public boolean projectExistsWithId(String id) {

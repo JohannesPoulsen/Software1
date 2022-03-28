@@ -14,11 +14,11 @@ Scenario: A project with a title is created
 	When the user creates a project with the title "Project 1"
 	Then a project is created with the title "Project 1"
 	
-#Scenario: Creating a project with an already existing project title
-#	Given there is a project with the title: "Project 1"
-#	When the user creates a new project with the title "Project 1"
-#	Then the error message "Project name already exists" is given
-#
+Scenario: Creating a project with an already existing project title
+	Given the user creates a project with the title "Project 1"
+	When the user creates a project with the title "Project 1"
+	Then the error message "Project with specified name already exists" is given
+
 #Scenario: A project is created with a projectleader
 #	Given the company has an employee with the initial: "huba"
 #	When a user creates a project

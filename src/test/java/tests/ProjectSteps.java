@@ -1,5 +1,6 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,6 +15,7 @@ public class ProjectSteps {
 	
 	private Project project;
 	private Application application;
+	private String errorMessage;
 	
 	
 	public ProjectSteps(Application application) {
@@ -34,7 +36,11 @@ public class ProjectSteps {
 	@When("the user creates a project without giving it a title")
 	public void the_user_creates_a_project_without_giving_it_a_title() {
 		Project project = new Project();
-	    application.addProject(project);
+		try {
+			application.addProject(project);
+		} catch(Exception e) {
+			e.getMessage();
+		}
 	}
 	
 	@Then("a project with the ID {string} is created")
@@ -49,14 +55,23 @@ public class ProjectSteps {
 	@When("the user creates a project with the title {string}")
 	public void the_user_creates_a_project_with_the_title(String name) {
 		Project project1 = new Project(name);
-	    application.addProject(project1);
+		try {
+			application.addProject(project1);
+		} catch(Exception e) {
+			errorMessage = e.getMessage();
+		}
 	}
 
 	@Then("a project is created with the title {string}")
 	public void a_project_is_created_with_the_title(String name) {
 		assertTrue(application.doesProjectExist(name));
 	}
-
+	
+	@Then("the error message {string} is given")
+	public void the_error_message_is_given(String string) {
+		assertEquals(errorMessage, string);
+	}
+	
 
 }
 

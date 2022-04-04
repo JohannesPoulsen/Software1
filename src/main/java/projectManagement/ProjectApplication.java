@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 public class ProjectApplication {
 
-	public ArrayList<Project> projects;
+
 	public ArrayList<Developer> developers;
+	public ArrayList<Project> projects;
+
 	
 	public ProjectApplication() {
 		projects = new ArrayList<Project>();
@@ -32,11 +34,11 @@ public class ProjectApplication {
 	}
 
 	public boolean doesProjectExist(String name) {
-		for (Project p : projects) {
-	    	if (p.getName().equals(name)) {
-	    		return true;
-	    		}
-	    }
+			for (Project p : projects) {
+				if (p.getName().equals(name)) {
+					return true;
+				}	
+			}
 		return false;
 	}
 	

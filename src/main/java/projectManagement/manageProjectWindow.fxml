@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="231.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectManagement.controllerTest">
+   <children>
+      <Button layoutX="14.0" layoutY="224.0" mnemonicParsing="false" onAction="#manageProjectClick" prefHeight="26.0" prefWidth="117.0" text="Manage project" />
+      <Button layoutX="150.0" layoutY="225.0" mnemonicParsing="false" onAction="#backToMainMenuClick" text="Back" />
+   </children>
+</AnchorPane>

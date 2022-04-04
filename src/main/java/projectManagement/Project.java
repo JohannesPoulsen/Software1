@@ -1,26 +1,33 @@
 package projectManagement;
 
+import java.util.ArrayList;
+import java.util.function.BooleanSupplier;
+
 public class Project {
 	
-	protected static int idNumber = 1;
+	public static int idNumber = 1;
 	String id;
 	String name;
 	Developer projectLeader;
+	ArrayList<Activity> activities;
 	
 	public Project() {
 		this.id = DateServer.getYear().substring(2,4) + String.format("%04d", idNumber);
 		idNumber++;
+		activities = new ArrayList<Activity>();
 	}
 	
 	public Project(String name) {
 		this.id = DateServer.getYear().substring(2,4) + String.format("%04d", idNumber);
 		this.name = name;
 		idNumber++;
+		activities = new ArrayList<Activity>();
 	}
 	
 	public Project(Developer projectLeader) {
 		this.id = DateServer.getYear().substring(2,4) + String.format("%04d", idNumber);
 		this.projectLeader = projectLeader;
+		activities = new ArrayList<Activity>();
 	}
 	
 	public String getId() {
@@ -36,6 +43,19 @@ public class Project {
 	
 	public Developer getProjectLeader() {
 		return this.projectLeader;
+	}
+
+	public void addActivity(Activity activity) {
+		activities.add(activity);
+	}
+
+	public boolean containsActivityWithName(String name) {
+		for (Activity a : activities) {
+			if (a.getName().equals(name)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

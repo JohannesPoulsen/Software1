@@ -27,8 +27,8 @@ public class ProjectSteps {
 	@Given("there is no other project already existing")
 	public void there_is_no_other_project_already_existing() {
 		assertTrue(application.projects.isEmpty());
+		application.resetProjectId();
 	}
-	
 
 	@Given("the current year is {string}")
 	public void the_current_year_is(String year) {
@@ -49,6 +49,7 @@ public class ProjectSteps {
 	public void a_project_with_the_id_is_created(String id) {
 	   assertTrue(application.projectExistsWithId(id));
 	}
+	
 	@Given("there is no other project with the title {string}")
 	public void there_is_no_other_project_with_the_title(String name) {
 	    assertFalse(application.doesProjectExist(name));
@@ -88,6 +89,8 @@ public class ProjectSteps {
 	public void is_the_leader_of_the_project(String string) {
 	    assertEquals(project.getProjectLeader().getInitials(),string);
 	}
+	
+	
 	
 
 }

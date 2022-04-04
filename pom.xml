@@ -7,7 +7,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>28</groupId>
-	<artifactId>project_management</artifactId>
+	<artifactId>Software1</artifactId>
 	<name>project_management</name>
 	<version>SNAPSHOT 0.0.1</version>
 
@@ -32,16 +32,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
-        </dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>

@@ -2,11 +2,11 @@ package projectManagement;
 
 import java.util.ArrayList;
 
-public class Application {
+public class ProjectApplication {
 
 	public ArrayList<Project> projects;
 	
-	public Application() {
+	public ProjectApplication() {
 		projects = new ArrayList<Project>();
 	}
 

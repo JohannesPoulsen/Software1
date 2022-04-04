@@ -7,18 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import projectManagement.Application;
+import projectManagement.ProjectApplication;
 import projectManagement.DateServer;
 import projectManagement.Project;
+
 
 public class ProjectSteps {
 	
 	private Project project;
-	private Application application;
+	private ProjectApplication application;
 	private String errorMessage;
 	
 	
-	public ProjectSteps(Application application) {
+	public ProjectSteps(ProjectApplication application) {
 		this.application = application;
 	}
 	

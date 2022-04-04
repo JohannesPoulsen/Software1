@@ -9,6 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import projectManagement.ProjectApplication;
 import projectManagement.DateServer;
+import projectManagement.Developer;
 import projectManagement.Project;
 
 
@@ -36,7 +37,7 @@ public class ProjectSteps {
 	
 	@When("the user creates a project without giving it a title")
 	public void the_user_creates_a_project_without_giving_it_a_title() {
-		Project project = new Project();
+		project = new Project();
 		try {
 			application.addProject(project);
 		} catch(Exception e) {
@@ -55,9 +56,9 @@ public class ProjectSteps {
 
 	@When("the user creates a project with the title {string}")
 	public void the_user_creates_a_project_with_the_title(String name) {
-		Project project1 = new Project(name);
+		project = new Project(name);
 		try {
-			application.addProject(project1);
+			application.addProject(project);
 		} catch(Exception e) {
 			errorMessage = e.getMessage();
 		}
@@ -71,6 +72,21 @@ public class ProjectSteps {
 	@Then("the error message {string} is given")
 	public void the_error_message_is_given(String string) {
 		assertEquals(errorMessage, string);
+	}
+
+	@When("a user creates a project with leader {string}")
+	public void a_user_creates_a_project_with_leader(String string) {
+	    project = new Project(application.getDeveloperByInitials(string));
+	    try {
+			application.addProject(project);
+		} catch(Exception e) {
+			errorMessage = e.getMessage();
+		}
+	}
+
+	@Then("{string} is the leader of the project")
+	public void is_the_leader_of_the_project(String string) {
+	    assertEquals(project.getProjectLeader().getInitials(),string);
 	}
 	
 

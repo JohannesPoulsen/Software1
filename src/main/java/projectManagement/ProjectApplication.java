@@ -2,12 +2,15 @@ package projectManagement;
 
 import java.util.ArrayList;
 
+
 public class ProjectApplication {
 
 	public ArrayList<Project> projects;
+	public ArrayList<Developer> developers;
 	
 	public ProjectApplication() {
 		projects = new ArrayList<Project>();
+		developers = new ArrayList<Developer>();
 	}
 
 	public void addProject(Project project) throws Exception {
@@ -36,5 +39,19 @@ public class ProjectApplication {
 	    }
 		return false;
 	}
+	
+	public Developer getDeveloperByInitials(String initials) {
+		for (Developer d : developers) {
+			if (d.getInitials().equals(initials)) {
+				return d;
+			}
+		}
+		return null;
+	}
+	
+	public void resetProjectId() {
+		Project.idNumber = 1;
+	}
+	
 
 }

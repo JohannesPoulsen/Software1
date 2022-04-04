@@ -45,6 +45,19 @@ public class ActivitySteps {
 		assertTrue(project.containsActivityWithName(name));
 	}
 	
+	@When("an activity with name {string}, expected start week {int} and end week {int} is created in the project")
+	public void anActivityWithNameExpectedStartWeekAndEndWeekIsCreatedInTheProject(String name, int start, int end) {
+	    activity = new Activity(name, start, end);
+	    project.addActivity(activity);
+	}
+
+	@Then("the activity with name {string}, expected start week {int} and end week {int} is stored within the project")
+	public void theActivityWithNameExpectedStartWeekAndEndWeekIsStoredWithinTheProject(String name, int start, int end) {
+		assertTrue(project.containsActivityWithName(name));
+		assertTrue(project.getActivityByName(name).getStart() == start);
+		assertTrue(project.getActivityByName(name).getEnd() == end);
+	}
+	
 	
 
 }

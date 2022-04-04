@@ -58,6 +58,15 @@ public class Project {
 		return false;
 	}
 	
+	public Activity getActivityByName(String name) {
+		for (Activity a : activities) {
+			if (a.getName().equals(name)) {
+				return a;
+			}
+		}
+		return null;
+	}
+	
 	
 	
 	

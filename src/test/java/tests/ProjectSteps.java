@@ -26,8 +26,8 @@ public class ProjectSteps {
 	
 	@Given("there is no other project already existing")
 	public void there_is_no_other_project_already_existing() {
-		application.projects.clear();
-		assertTrue(application.projects.isEmpty());
+		application.getProjects().clear();
+		assertTrue(application.getProjects().isEmpty());
 		application.resetProjectId();
 	}
 

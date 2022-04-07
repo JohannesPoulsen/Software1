@@ -1,15 +1,24 @@
 package projectManagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class ProjectApplication {
+public final class ProjectApplication {
 
 
+	private static ProjectApplication instance;
+	public static ProjectApplication getInstance() {
+		if (instance == null) {
+			instance = new ProjectApplication();
+		}
+		return instance;
+	}
 	public ArrayList<Developer> developers;
-	public ArrayList<Project> projects;
-
 	
+	private final ArrayList<Project> projects;
+
+
 	public ProjectApplication() {
 		projects = new ArrayList<Project>();
 		developers = new ArrayList<Developer>();
@@ -53,6 +62,10 @@ public class ProjectApplication {
 	
 	public void resetProjectId() {
 		Project.idNumber = 1;
+	}
+
+	public List<Project> getProjects() {
+		return projects;
 	}
 	
 

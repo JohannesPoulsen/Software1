@@ -31,7 +31,7 @@ public class ActivitySteps {
 		} catch(Exception e) {
 			e.getMessage();
 		}
-		assertTrue(application.projects.contains(project));
+		assertTrue(application.getProjects().contains(project));
 	}
 
 	@When("an activity with name {string} is created in the project")

@@ -44,6 +44,10 @@ public class Project {
 	public Developer getProjectLeader() {
 		return this.projectLeader;
 	}
+	
+	public void setProjectLeader(Developer developer) {
+		this.projectLeader = developer;
+	}
 
 	public void addActivity(Activity activity) {
 		activities.add(activity);

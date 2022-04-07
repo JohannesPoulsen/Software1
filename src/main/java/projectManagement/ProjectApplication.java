@@ -68,5 +68,9 @@ public final class ProjectApplication {
 		return projects;
 	}
 	
+	public void setProjectLeaderByInitials(Project project, String initials) {
+		project.setProjectLeader(getDeveloperByInitials(initials));
+	}
+	
 
 }

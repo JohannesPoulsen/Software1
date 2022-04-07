@@ -18,9 +18,11 @@ public class ActivitySteps {
 	ProjectApplication application;
 	Project project;
 	Activity activity;
+	ErrorMessageHolder errorMessage;
 	
-	public ActivitySteps(ProjectApplication application) {
+	public ActivitySteps(ProjectApplication application, ErrorMessageHolder errorMessage) {
 		this.application = application;
+		this.errorMessage = errorMessage;
 	}
 	
 	@Given("there exists a project")
@@ -58,6 +60,13 @@ public class ActivitySteps {
 		assertTrue(project.getActivityByName(name).getEnd() == end);
 	}
 	
-	
+	@When("an activity with no name is created in the project")
+	public void anActivityWithNoNameIsCreatedInTheProject() {
+		try {
+			activity = new Activity("");
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
 
 }

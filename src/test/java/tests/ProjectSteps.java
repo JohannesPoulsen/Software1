@@ -17,11 +17,17 @@ public class ProjectSteps {
 	
 	private Project project;
 	private ProjectApplication application;
-	private String errorMessage;
+	private ErrorMessageHolder errorMessage;
 	
 	
-	public ProjectSteps(ProjectApplication application) {
+	public ProjectSteps(ProjectApplication application, ErrorMessageHolder errorMessage) {
 		this.application = application;
+		this.errorMessage = errorMessage;
+	}
+	
+	@Then("the error message {string} is given")
+	public void the_error_message_is_given(String string) {
+		assertEquals(errorMessage.getErrorMessage(), string);
 	}
 	
 	@Given("there is no other project already existing")
@@ -42,7 +48,7 @@ public class ProjectSteps {
 		try {
 			application.addProject(project);
 		} catch(Exception e) {
-			e.getMessage();
+			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
 	
@@ -62,18 +68,13 @@ public class ProjectSteps {
 		try {
 			application.addProject(project);
 		} catch(Exception e) {
-			errorMessage = e.getMessage();
+			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
 
 	@Then("a project is created with the title {string}")
 	public void a_project_is_created_with_the_title(String name) {
 		assertTrue(application.doesProjectExist(name));
-	}
-	
-	@Then("the error message {string} is given")
-	public void the_error_message_is_given(String string) {
-		assertEquals(errorMessage, string);
 	}
 
 	@When("a user creates a project with leader {string}")
@@ -82,7 +83,7 @@ public class ProjectSteps {
 	    try {
 			application.addProject(project);
 		} catch(Exception e) {
-			errorMessage = e.getMessage();
+			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
 

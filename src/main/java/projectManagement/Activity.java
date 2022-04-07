@@ -10,7 +10,12 @@ public class Activity {
 	int start, end;
 
 	public Activity(String name) {
-		this.name = name;
+		if (!name.equals("")) {
+			this.name = name;
+		} else {
+			throw new IllegalArgumentException("Error: missing activity name");
+		}
+		
 	}
 
 	public Activity(String name, int start, int end) {

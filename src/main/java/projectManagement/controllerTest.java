@@ -23,6 +23,7 @@ public class controllerTest{
 	
 	ProjectApplication application = ProjectApplication.getInstance();
 	static String selectedProjectID;
+	static String selectedProjectIDWithName;
 	
 
     @FXML
@@ -66,18 +67,25 @@ public class controllerTest{
     }
 
     @FXML
-    void onChangeProjectLeaderClick(ActionEvent event) {
-
+    void onChangeProjectLeaderClick(ActionEvent event) throws IOException{
+    	//application.getProjectById(selectedProjectID).setProjectLeader(application.getDeveloperByInitials(initialsForChangeLeader.getText()));
+    	
+    	changeScene("/projectManagement/ProjectWindow.fxml");
     }
 
     @FXML
     void onEndActivityClick(ActionEvent event) {
-
+    	
     }
 
     @FXML
-    void onEndProjectClick(ActionEvent event) {
-
+    void onEndProjectClick(ActionEvent event) throws IOException{
+    	application.endProject(application.getProjectById(selectedProjectID));
+    	selectedProjectID = null;
+    	selectedProjectIDWithName = null;
+    	Viewer.primaryStage.setTitle("Manage Projects");
+    	changeScene("/projectManagement/manageProjectWindow.fxml");
+    	
     }
 
     public void initialize(){
@@ -92,10 +100,9 @@ public class controllerTest{
         if(selectedProjectID != null) {
         	for(Activity activity : application.getProjectById(selectedProjectID).getActivities()) {
         		items2.add(activity.getName());
-        	}
+        		}
         	activityList.setItems(items2);
-        }
-        
+        	}
         }
     
         
@@ -114,12 +121,13 @@ public class controllerTest{
     }
     @FXML
     void openManageProjectsClick(ActionEvent event) throws IOException{
+    	Viewer.primaryStage.setTitle("Manage Project");
     	changeScene("/projectManagement/manageProjectWindow.fxml");
     }
 
     @FXML
     void openProjectWindowClick(ActionEvent event) throws IOException {
-    	Viewer.primaryStage.setTitle("Welcome!");
+    	Viewer.primaryStage.setTitle("Create Project");
     	changeScene("/projectManagement/CreateProjectWindow.fxml");
     }
 
@@ -135,8 +143,9 @@ public class controllerTest{
 
     @FXML
     void manageProjectClick(ActionEvent event) throws IOException {
-    	selectedProjectID = list.getSelectionModel().getSelectedItem();
-    	Viewer.primaryStage.setTitle(selectedProjectID);
+    	selectedProjectIDWithName = list.getSelectionModel().getSelectedItem();
+    	selectedProjectID = list.getSelectionModel().getSelectedItem().substring(0,6);
+    	Viewer.primaryStage.setTitle(selectedProjectIDWithName);
     	changeScene("/projectManagement/ProjectWindow.fxml");
 
     }

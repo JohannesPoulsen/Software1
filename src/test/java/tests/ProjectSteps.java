@@ -25,6 +25,17 @@ public class ProjectSteps {
 		this.errorMessage = errorMessage;
 	}
 	
+	@Given("a project is created")
+	public void aProjectIsCreated() {
+		project = new Project();
+		try {
+			application.addProject(project);
+		} catch(Exception e) {
+			e.getMessage();
+		}
+		assertTrue(application.getProjects().contains(project));
+	}
+	
 	@Then("the error message {string} is given")
 	public void the_error_message_is_given(String string) {
 		assertEquals(errorMessage.getErrorMessage(), string);
@@ -89,8 +100,8 @@ public class ProjectSteps {
 	}
 
 	@Then("{string} is the leader of the project")
-	public void is_the_leader_of_the_project(String string) {
-	    assertEquals(project.getProjectLeader().getInitials(),string);
+	public void is_the_leader_of_the_project(String initials) {
+	    assertEquals(project.getProjectLeader().getInitials(),initials);
 	}
 	
 	@Given("there is a project with ID {string}")
@@ -128,6 +139,11 @@ public class ProjectSteps {
 	    	application.endProject(application.getProjectById(ID));
 	    }
 	    assertFalse(application.projectExistsWithId(ID));
+	}
+	
+	@When("{string} is assigned as the project leader of the project")
+	public void isAssignedAsTheProjectLeaderOfTheProject(String initials) {
+	    project.setProjectLeader(application.getDeveloperByInitials(initials));
 	}
 
 	

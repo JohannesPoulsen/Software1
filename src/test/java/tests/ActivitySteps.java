@@ -26,7 +26,7 @@ public class ActivitySteps {
 	}
 	
 	@Given("there exists a project")
-	public void thereIsAProjectWithId() {
+	public void thereExistsAProject() {
 		project = new Project();
 		try {
 			application.addProject(project);

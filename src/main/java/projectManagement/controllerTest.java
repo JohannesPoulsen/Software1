@@ -82,7 +82,11 @@ public class controllerTest{
 
     public void initialize(){
     	for(Project project : application.getProjects()) {
-    		items.add(project.getId());
+    		if(project.getName() == "") {
+    			items.add(project.getId());
+    		} else {
+    			items.add(project.getId() + ": " + project.getName());
+    		}
     	}
         list.setItems(items);
         if(selectedProjectID != null) {

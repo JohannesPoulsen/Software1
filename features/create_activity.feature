@@ -21,10 +21,10 @@ Scenario: Create activity with no name
 #	Given there exists a project
 #	When an activity with name "Database fix", expected hour usage 50 is created in the project
 #	Then the activity with name "Database fix", expected hour usage 50 is stored within the project
-#	
-#Scenario: Create activity with name of existing activity
-#	Given there exists a project
-#	And an activity with name "Database fix" is stored within the project
-#	When an activity with name "Database fix" is created in the project
-#	Then the error message "Error: activity name in use" is given
-#	
+	
+Scenario: Create activity with name of existing activity
+	Given there exists a project
+	And an activity with name "Database fix" is stored within the project
+	When an activity with name "Database fix" is created in the project
+	Then the error message "Error: activity name in use" is given
+	

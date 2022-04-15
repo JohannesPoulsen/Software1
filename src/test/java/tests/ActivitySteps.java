@@ -38,8 +38,16 @@ public class ActivitySteps {
 
 	@When("an activity with name {string} is created in the project")
 	public void anActivityWithNameIsCreatedInTheProjectWithId(String name) {
-		activity = new Activity(name);
-		project.addActivity(activity);
+		try {
+			activity = new Activity(name);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+		try {
+			project.addActivity(activity);
+		} catch (IllegalStateException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
 
 	@Then("the activity with name {string} is stored within the project")
@@ -49,8 +57,16 @@ public class ActivitySteps {
 	
 	@When("an activity with name {string}, expected start week {int} and end week {int} is created in the project")
 	public void anActivityWithNameExpectedStartWeekAndEndWeekIsCreatedInTheProject(String name, int start, int end) {
-	    activity = new Activity(name, start, end);
-	    project.addActivity(activity);
+		try {
+			activity = new Activity(name, start, end);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+		try {
+			project.addActivity(activity);
+		} catch (IllegalStateException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
 
 	@Then("the activity with name {string}, expected start week {int} and end week {int} is stored within the project")
@@ -68,5 +84,17 @@ public class ActivitySteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
+	
+	@Given("an activity with name {string} is stored within the project")
+	public void anActivityWithNameIsStoredWithinTheProject(String name) {
+		activity = new Activity(name);
+		try {
+			project.addActivity(activity);
+		} catch (IllegalStateException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	    
+	}
+	
 
 }

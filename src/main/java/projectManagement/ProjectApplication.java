@@ -71,6 +71,23 @@ public final class ProjectApplication {
 	public void setProjectLeaderByInitials(Project project, String initials) {
 		project.setProjectLeader(getDeveloperByInitials(initials));
 	}
+
+	public Project getProjectById(String id) {
+		for (Project p : projects) {
+	    	if (p.getId().equals(id)) {
+	    		return p;
+	    		}
+	    }
+		return null;
+	}
+
+	public void endProject(Project project) {
+		if (projects.contains(project)) {
+			projects.remove(project);
+		} else {
+			throw new IllegalStateException("Project with specified ID does not exist");
+		}
+	}
 	
 
 }

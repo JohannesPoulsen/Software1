@@ -50,7 +50,12 @@ public class Project {
 	}
 
 	public void addActivity(Activity activity) {
-		activities.add(activity);
+		if (!containsActivityWithName(activity.getName())) {
+			activities.add(activity);
+		}
+		else {
+			throw new IllegalStateException("Error: activity name in use");
+		}
 	}
 
 	public boolean containsActivityWithName(String name) {

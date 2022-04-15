@@ -78,19 +78,58 @@ public class ProjectSteps {
 	}
 
 	@When("a user creates a project with leader {string}")
-	public void a_user_creates_a_project_with_leader(String string) {
-	    project = new Project(application.getDeveloperByInitials(string));
+	public void a_user_creates_a_project_with_leader(String initials) {
+	    project = new Project(application.getDeveloperByInitials(initials));
 	    try {
 			application.addProject(project);
 		} catch(Exception e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
+	    
 	}
 
 	@Then("{string} is the leader of the project")
 	public void is_the_leader_of_the_project(String string) {
 	    assertEquals(project.getProjectLeader().getInitials(),string);
 	}
+	
+	@Given("there is a project with ID {string}")
+	public void thereIsAProjectWithID(String ID) {
+		application.getProjects().clear();
+		assertTrue(application.getProjects().isEmpty());
+		application.resetProjectId();
+		project = new Project();
+	    try {
+			application.addProject(project);
+		} catch(Exception e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	    assertTrue(application.projectExistsWithId(ID));
+		
+	}
+
+	@When("the project with the ID {string} is marked as ended")
+	public void theProjectWithTheIDIsMarkedAsFinished(String ID) {
+		try {
+			application.endProject(application.getProjectById(ID));
+		} catch(IllegalStateException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("the project with ID {string} is deleted from the active projectlist")
+	public void theProjectWithIDIsDeletedFromTheActiveProjectlist(String ID) {
+	    assertFalse(application.projectExistsWithId(ID));
+	}
+	
+	@Given("there is no project with the ID: {string}")
+	public void thereIsNoProjectWithTheID(String ID) {
+	    if (application.projectExistsWithId(ID)) {
+	    	application.endProject(application.getProjectById(ID));
+	    }
+	    assertFalse(application.projectExistsWithId(ID));
+	}
+
 	
 	
 	

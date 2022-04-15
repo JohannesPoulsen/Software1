@@ -1,6 +1,7 @@
 package projectManagement;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BooleanSupplier;
 
 public class Project {
@@ -74,6 +75,10 @@ public class Project {
 			}
 		}
 		return null;
+	}
+
+	public List<Activity> getActivities() {
+		return activities;
 	}
 	
 	

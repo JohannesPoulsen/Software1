@@ -14,7 +14,11 @@ public final class ProjectApplication {
 		}
 		return instance;
 	}
+	//midlertidig test dev
+	Developer tester = new Developer("huba");
+	//
 	public ArrayList<Developer> developers;
+	
 	
 	private final ArrayList<Project> projects;
 
@@ -22,6 +26,8 @@ public final class ProjectApplication {
 	public ProjectApplication() {
 		projects = new ArrayList<Project>();
 		developers = new ArrayList<Developer>();
+		//til test af developer:
+		developers.add(tester);
 	}
 
 	public void addProject(Project project) throws Exception {

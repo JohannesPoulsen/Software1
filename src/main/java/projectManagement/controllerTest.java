@@ -22,7 +22,7 @@ public class controllerTest{
 
 	
 	ProjectApplication application = ProjectApplication.getInstance();
-	
+	static String selectedProjectID;
 	
 
     @FXML
@@ -35,19 +35,78 @@ public class controllerTest{
     private ListView<String> list = new ListView<String>();
     
     private ObservableList<String> items =FXCollections.observableArrayList ();
+    @FXML
+    private ListView<String> activityList = new ListView<String>();
+    
+    private ObservableList<String> items2 =FXCollections.observableArrayList ();
+
+    @FXML
+    private TextField activityName;
+
+    @FXML
+    private TextField endWeekForActivity;
+
+    @FXML
+    private TextField initialsForChangeLeader;
+
+    @FXML
+    private TextField startWeekForActivity;
+
+    @FXML
+    void onAddActivityClick(ActionEvent event) throws IOException{
+    	if(activityName != null) {
+    		Activity newAct = new Activity(activityName.getText());
+    		application.getProjectById(selectedProjectID).addActivity(newAct);
+    		changeScene("/projectManagement/ProjectWindow.fxml");
+    	}
+    }
+    @FXML
+    void backToProjects(ActionEvent event) throws IOException{
+    	changeScene("/projectManagement/manageProjectWindow.fxml");
+    }
+
+    @FXML
+    void onChangeProjectLeaderClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEndActivityClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEndProjectClick(ActionEvent event) {
+
+    }
 
     public void initialize(){
     	for(Project project : application.getProjects()) {
     		items.add(project.getId());
     	}
-    	items.add("hej");
         list.setItems(items);
+        if(selectedProjectID != null) {
+        	for(Activity activity : application.getProjectById(selectedProjectID).getActivities()) {
+        		items2.add(activity.getName());
+        	}
+        	activityList.setItems(items2);
         }
+        
+        }
+    
         
     @FXML
     void onCreateProjectClick(ActionEvent event) throws Exception {
-    	application.addProject(new Project(project_name_TF.getText()));
-    	System.out.println(application.getProjects().size());
+    	if(application.doesProjectExist(project_name_TF.getText())) {
+    		
+    	}
+    	else {
+    		Project projectToAdd = new Project(project_name_TF.getText());
+    		application.addProject(projectToAdd);
+    		application.setProjectLeaderByInitials(projectToAdd, project_leader_TF.getText());
+    		changeScene("/projectManagement/mainMenu.fxml");
+    	}
+    	
     }
     @FXML
     void openManageProjectsClick(ActionEvent event) throws IOException{
@@ -56,6 +115,7 @@ public class controllerTest{
 
     @FXML
     void openProjectWindowClick(ActionEvent event) throws IOException {
+    	Viewer.primaryStage.setTitle("Welcome!");
     	changeScene("/projectManagement/CreateProjectWindow.fxml");
     }
 
@@ -71,6 +131,9 @@ public class controllerTest{
 
     @FXML
     void manageProjectClick(ActionEvent event) throws IOException {
+    	selectedProjectID = list.getSelectionModel().getSelectedItem();
+    	Viewer.primaryStage.setTitle(selectedProjectID);
+    	changeScene("/projectManagement/ProjectWindow.fxml");
 
     }
 

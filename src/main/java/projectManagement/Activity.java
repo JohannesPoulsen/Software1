@@ -47,5 +47,13 @@ public class Activity {
 	public void setEnd(int end) {
 		this.end = end;
 	}
+	
+	public void addDeveloperByInitials(String initials) {
+		developers.add(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+	}
+
+	public boolean hasDeveloperByInitials(String initials) {
+		return developers.contains(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+	}
 
 }

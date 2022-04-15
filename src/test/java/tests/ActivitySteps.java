@@ -96,5 +96,25 @@ public class ActivitySteps {
 	    
 	}
 	
+	@Given("there is an activity with name {string} stored in the project")
+	public void thereIsAnActivityWithNameStoredInTheProject(String name) {
+		activity = new Activity(name);
+		project.addActivity(activity);
+		assertTrue(project.containsActivityWithName(name));
+	}
+	
+	@When("a user assigns the developer with initials {string} to the activity")
+	public void aUserAssignsTheDeveloperWithInitialsToTheActivity(String initials) {
+		try {
+			activity.addDeveloperByInitials(initials);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
+	
+	@Then("the developer with initials {string} is assigned to the activity")
+	public void theDeveloperWithInitialsIsAssignedToTheActivity(String initials) {
+	    assertTrue(activity.hasDeveloperByInitials(initials));
+	}
 
 }

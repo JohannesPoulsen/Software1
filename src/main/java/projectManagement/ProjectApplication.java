@@ -44,7 +44,7 @@ public final class ProjectApplication {
 
 	public boolean doesProjectExist(String name) {
 			for (Project p : projects) {
-				if (p.getName().equals(name)) {
+				if (p.getName().equals(name) && !p.getName().equals("")) {
 					return true;
 				}	
 			}

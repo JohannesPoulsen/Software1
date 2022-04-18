@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,7 +26,9 @@ public class controllerTest{
 	static String selectedProjectID;
 	static String selectedProjectIDWithName;
 	
-
+    @FXML
+    private Label currentProjectLeaderLabel = new Label();
+    
     @FXML
     private TextField project_leader_TF;
 
@@ -68,7 +71,7 @@ public class controllerTest{
 
     @FXML
     void onChangeProjectLeaderClick(ActionEvent event) throws IOException{
-    	//application.getProjectById(selectedProjectID).setProjectLeader(application.getDeveloperByInitials(initialsForChangeLeader.getText()));
+    	application.getProjectById(selectedProjectID).setProjectLeader(application.getDeveloperByInitials(initialsForChangeLeader.getText()));
     	
     	changeScene("/projectManagement/ProjectWindow.fxml");
     }
@@ -98,6 +101,9 @@ public class controllerTest{
     	}
         list.setItems(items);
         if(selectedProjectID != null) {
+        	if(application.getProjectById(selectedProjectID).getProjectLeader() != null) {
+        		currentProjectLeaderLabel.setText(application.getProjectById(selectedProjectID).getProjectLeader().getInitials());    		
+        	}
         	for(Activity activity : application.getProjectById(selectedProjectID).getActivities()) {
         		items2.add(activity.getName());
         		}

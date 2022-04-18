@@ -2,7 +2,6 @@ package projectManagement;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,33 +27,26 @@ public class controllerTest{
 	
     @FXML
     private Label currentProjectLeaderLabel = new Label();
-    
     @FXML
     private TextField project_leader_TF;
-
     @FXML
     private TextField project_name_TF;
-    
     @FXML
     private ListView<String> list = new ListView<String>();
-    
     private ObservableList<String> items =FXCollections.observableArrayList ();
     @FXML
     private ListView<String> activityList = new ListView<String>();
-    
     private ObservableList<String> items2 =FXCollections.observableArrayList ();
-
     @FXML
     private TextField activityName;
-
     @FXML
     private TextField endWeekForActivity;
-
     @FXML
     private TextField initialsForChangeLeader;
-
     @FXML
     private TextField startWeekForActivity;
+    @FXML
+    private TextField nameForChangeProjectName;
 
     @FXML
     void onAddActivityClick(ActionEvent event) throws IOException{
@@ -66,19 +58,32 @@ public class controllerTest{
     }
     @FXML
     void backToProjects(ActionEvent event) throws IOException{
+    	Viewer.primaryStage.setTitle("Manage Project");
     	changeScene("/projectManagement/manageProjectWindow.fxml");
     }
 
     @FXML
     void onChangeProjectLeaderClick(ActionEvent event) throws IOException{
-    	application.getProjectById(selectedProjectID).setProjectLeader(application.getDeveloperByInitials(initialsForChangeLeader.getText()));
+    	if(application.getDeveloperByInitials(initialsForChangeLeader.getText()) != null) {
+    		application.getProjectById(selectedProjectID).setProjectLeader(application.getDeveloperByInitials(initialsForChangeLeader.getText()));
+    		changeScene("/projectManagement/ProjectWindow.fxml");
+    	}
     	
-    	changeScene("/projectManagement/ProjectWindow.fxml");
     }
 
     @FXML
-    void onEndActivityClick(ActionEvent event) {
+    void onEditActivityClick(ActionEvent event) {
     	
+    }
+    @FXML
+    void onChangeProjectNameClick(ActionEvent event) throws IOException{
+    	if(!application.doesProjectExist(nameForChangeProjectName.getText())) {
+    		application.getProjectById(selectedProjectID).setName(nameForChangeProjectName.getText());
+    		selectedProjectIDWithName = selectedProjectID + ": " + nameForChangeProjectName.getText();
+    		Viewer.primaryStage.setTitle(selectedProjectIDWithName);
+    		changeScene("/projectManagement/ProjectWindow.fxml");
+    		
+    	}
     }
 
     @FXML
@@ -143,6 +148,7 @@ public class controllerTest{
     }
     @FXML
     void backToMainMenuClick(ActionEvent event) throws IOException {
+    	Viewer.primaryStage.setTitle("Welcome!");
     	changeScene("/projectManagement/mainMenu.fxml");
     }
 

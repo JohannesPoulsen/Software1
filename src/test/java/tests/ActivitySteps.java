@@ -116,5 +116,34 @@ public class ActivitySteps {
 	public void theDeveloperWithInitialsIsAssignedToTheActivity(String initials) {
 	    assertTrue(activity.hasDeveloperByInitials(initials));
 	}
+	
+	@Given("{string} is assigned to the activity")
+	public void isAssignedToTheActivity(String initials) {
+	    activity.addDeveloperByInitials(initials);
+	    assertTrue(activity.hasDeveloperByInitials(initials));
+	}
+
+	@When("{string} is removed from the activity")
+	public void isRemovedFromTheActivity(String initials) {
+	    try {
+	    	activity.removeDeveloperByInitials(initials);
+	    } catch (IllegalArgumentException e) {
+	    	errorMessage.setErrorMessage(e.getMessage());
+	    }
+	}
+
+	@Then("{string} is not assigned to the activity")
+	public void isNotAssignedToTheActivity(String initials) {
+	    assertFalse(activity.hasDeveloperByInitials(initials));
+	}
+	
+	@When("an activity with no name, expected start week {int} and end week {int} is created in the project")
+	public void anActivityWithNoNameExpectedStartWeekAndEndWeekIsCreatedInTheProject(Integer start, Integer end) {
+		try {
+			activity = new Activity("", start, end);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
 
 }

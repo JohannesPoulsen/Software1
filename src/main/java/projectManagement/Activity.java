@@ -19,7 +19,11 @@ public class Activity {
 	}
 
 	public Activity(String name, int start, int end) {
-		this.name = name;
+		if (!name.equals("")) {
+			this.name = name;
+		} else {
+			throw new IllegalArgumentException("Error: missing activity name");
+		}
 		this.start = start;
 		this.end = end;
 	}
@@ -49,11 +53,25 @@ public class Activity {
 	}
 	
 	public void addDeveloperByInitials(String initials) {
-		developers.add(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+		if (!hasDeveloperByInitials(initials)) {
+			developers.add(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+		} else {
+			throw new IllegalArgumentException("Error: developer already assigned to this activity");
+		}
 	}
 
 	public boolean hasDeveloperByInitials(String initials) {
 		return developers.contains(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+	}
+
+	public void removeDeveloperByInitials(String initials) {
+		if (hasDeveloperByInitials(initials)) {
+			developers.remove(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+		} else {
+			throw new IllegalArgumentException("Error: developer not assigned to this activity");
+		}
+		
+		
 	}
 
 }

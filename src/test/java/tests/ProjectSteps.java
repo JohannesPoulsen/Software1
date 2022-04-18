@@ -145,6 +145,12 @@ public class ProjectSteps {
 	public void isAssignedAsTheProjectLeaderOfTheProject(String initials) {
 	    project.setProjectLeader(application.getDeveloperByInitials(initials));
 	}
+	
+	@Given("{string} is the project leader of the project")
+	public void isTheProjectLeaderOfTheProject(String initials) {
+	    project.setProjectLeader(application.getDeveloperByInitials(initials));
+	    assertTrue(project.getProjectLeader().getInitials().equals(initials));
+	}
 
 	
 	

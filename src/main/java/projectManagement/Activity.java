@@ -1,6 +1,7 @@
 package projectManagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Activity {
 	
@@ -71,6 +72,11 @@ public class Activity {
 
 	public boolean hasDeveloperByInitials(String initials) {
 		return developers.contains(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+	}
+	
+	
+	public List<Developer> getDevelopers() {
+		return developers;
 	}
 
 	public void removeDeveloperByInitials(String initials) {

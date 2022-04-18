@@ -24,6 +24,7 @@ public class controllerTest{
 	ProjectApplication application = ProjectApplication.getInstance();
 	static String selectedProjectID;
 	static String selectedProjectIDWithName;
+	static String selectedActivity;
 	
     @FXML
     private Label currentProjectLeaderLabel = new Label();
@@ -49,6 +50,7 @@ public class controllerTest{
     private TextField nameForChangeProjectName;
     @FXML
     private ListView<String> devList = new ListView<String>();
+    private ObservableList<String> items3 =FXCollections.observableArrayList ();
 
     @FXML
     private TextField initialToAddDevToActivity;
@@ -60,8 +62,15 @@ public class controllerTest{
     private TextField weekForChangeStart;
     
     @FXML
-    void addDevToActivityClick(ActionEvent event) {
-
+    private Label startWeekCurrent = new Label ();
+    
+    @FXML
+    private Label endWeekCurrent = new Label ();
+    
+    @FXML
+    void addDevToActivityClick(ActionEvent event) throws IOException{
+    	application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).addDeveloperByInitials(initialToAddDevToActivity.getText());
+		changeScene("/projectManagement/ManageActivity.fxml"); 
     }
 
     @FXML
@@ -72,27 +81,40 @@ public class controllerTest{
     @FXML
     void backToManageProjectClick(ActionEvent event) throws IOException{
 		Viewer.primaryStage.setTitle(selectedProjectIDWithName);
+		selectedActivity = null;
 		changeScene("/projectManagement/ProjectWindow.fxml");
     }
 
     @FXML
-    void changeEndForActivityClick(ActionEvent event) {
+    void changeEndForActivityClick(ActionEvent event) throws IOException{
+		int end = Integer.parseInt(weekForChangeEnd.getText());
+    	application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setEnd(end);
+    	changeScene("/projectManagement/ManageActivity.fxml"); 
+    }
+
+    @FXML
+    void changeStartForAcvityClick(ActionEvent event) throws IOException{
+		int start = Integer.parseInt(weekForChangeStart.getText());
+    	application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setStart(start);
+    	changeScene("/projectManagement/ManageActivity.fxml"); 
+    }
+
+    @FXML
+    void endActivityClick(ActionEvent event) throws IOException{
+    	Project project = application.getProjectById(selectedProjectID);
+    	project.endActivityByName(selectedActivity);
+    	Viewer.primaryStage.setTitle(selectedProjectIDWithName);
+    	selectedActivity = null;
+    	changeScene("/projectManagement/ProjectWindow.fxml"); 
 
     }
 
     @FXML
-    void changeStartForAcvityClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void endActivityClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void removeDevClick(ActionEvent event) {
-
+    void removeDevClick(ActionEvent event) throws IOException{
+    	Project project = application.getProjectById(selectedProjectID);
+    	Activity activity = project.getActivityByName(selectedActivity);
+    	activity.removeDeveloperByInitials(devList.getSelectionModel().getSelectedItem());
+    	changeScene("/projectManagement/ManageActivity.fxml"); 
     }
     
     @FXML
@@ -126,7 +148,12 @@ public class controllerTest{
     }
 
     @FXML
-    void onEditActivityClick(ActionEvent event) {
+    void onEditActivityClick(ActionEvent event) throws IOException{
+    	selectedActivity = activityList.getSelectionModel().getSelectedItem();
+    	if(selectedActivity != null) {
+    		Viewer.primaryStage.setTitle(selectedActivity);
+    		changeScene("/projectManagement/ManageActivity.fxml");    		
+    	}
     	
     }
     @FXML
@@ -168,6 +195,17 @@ public class controllerTest{
         		}
         	activityList.setItems(items2);
         	}
+        
+        if(selectedActivity != null) {
+    		String start = String.valueOf(application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).getStart());
+    		String end = String.valueOf(application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).getEnd());
+    		startWeekCurrent.setText(start);
+    		endWeekCurrent.setText(end);
+        	for(Developer dev : application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).getDevelopers()) {
+        		items3.add(dev.getInitials());
+        	}
+        	devList.setItems(items3);
+        }
         }
     
         

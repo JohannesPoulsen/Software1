@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="352.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectManagement.controllerTest">
    <children>
       <TextField fx:id="initialToAddDevToActivity" layoutX="239.0" layoutY="161.0" prefHeight="26.0" prefWidth="104.0" promptText="Initials" />

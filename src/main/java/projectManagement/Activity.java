@@ -8,6 +8,7 @@ public class Activity {
 	ArrayList<Developer> developers = new ArrayList<Developer>();
 	String name;
 	int start, end;
+	private double expectedHourUsage;
 
 	public Activity(String name) {
 		if (!name.equals("")) {
@@ -33,7 +34,7 @@ public class Activity {
 	}
 
 	public String getName() {
-		return this.name;
+		return this.name;  
 	}
 	
 	public int getStart() {
@@ -41,7 +42,11 @@ public class Activity {
 	}
 
 	public void setStart(int start) {
-		this.start = start;
+		if (0 < start && start < 53) {			
+			this.start = start;
+		} else {
+			throw new IllegalArgumentException("Error: invalid week number");
+		}
 	}
 
 	public int getEnd() {
@@ -49,7 +54,11 @@ public class Activity {
 	}
 
 	public void setEnd(int end) {
-		this.end = end;
+		if (0 < end && end < 53) {			
+			this.end = end;
+		} else {
+			throw new IllegalArgumentException("Error: invalid week number");
+		}
 	}
 	
 	public void addDeveloperByInitials(String initials) {
@@ -72,6 +81,14 @@ public class Activity {
 		}
 		
 		
+	}
+
+	public void setExpectedHourUsage(Double hours) {
+		this.expectedHourUsage = hours;
+	}
+
+	public double getExpectedHourUsage() {
+		return this.expectedHourUsage;
 	}
 
 }

@@ -145,5 +145,55 @@ public class ActivitySteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
+	
+	@When("the start week is changed to {int}")
+	public void theStartWeekIsChangedTo(int start) {
+		try {
+			activity.setStart(start);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+		
+	}
+
+	@Then("the start week of the activity is {int}")
+	public void theStartWeekOfTheActivityIs(int start) {
+	    assertTrue(activity.getStart() == start);
+	}
+	
+	@When("the end week is changed to {int}")
+	public void theEndWeekIsChangedTo(Integer end) {
+		try {
+			activity.setEnd(end);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("the end week of the activity is {int}")
+	public void theEndWeekOfTheActivityIs(int end) {
+	    assertTrue(activity.getEnd() == end);
+	}
+	
+	@When("the expected hour usage of the activity is set to {double}")
+	public void theExpectedHourUsageOfTheActivityIsSetTo(Double hours) {
+	    activity.setExpectedHourUsage(hours);
+	}
+
+	@Then("the expected hour usage of the activity is {double}")
+	public void theExpectedHourUsageOfTheActivityIs(Double hours) {
+	    assertTrue(activity.getExpectedHourUsage() == hours);
+	}
+	
+	@When("the activity {string} is removed from the project")
+	public void theActivityIsRemovedFromTheProject(String name) {
+	    project.endActivityByName(name);
+	}
+
+	@Then("the activity {string} is not in the project")
+	public void theActivityIsNotInTheProject(String name) {
+	    assertFalse(project.containsActivityWithName(name));
+	}
+	
 
 }

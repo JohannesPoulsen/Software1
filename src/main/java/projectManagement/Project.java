@@ -80,6 +80,11 @@ public class Project {
 	public List<Activity> getActivities() {
 		return activities;
 	}
+
+	public void endActivityByName(String name) {
+		activities.remove(getActivityByName(name));
+	}
+
 	
 	
 	

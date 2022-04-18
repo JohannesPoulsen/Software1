@@ -143,7 +143,7 @@ public class ProjectSteps {
 	
 	@When("{string} is assigned as the project leader of the project")
 	public void isAssignedAsTheProjectLeaderOfTheProject(String initials) {
-	    project.setProjectLeader(application.getDeveloperByInitials(initials));
+	    application.setProjectLeaderByInitials(project, initials);
 	}
 	
 	@Given("{string} is the project leader of the project")

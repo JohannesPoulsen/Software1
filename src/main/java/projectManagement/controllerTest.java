@@ -47,11 +47,65 @@ public class controllerTest{
     private TextField startWeekForActivity;
     @FXML
     private TextField nameForChangeProjectName;
+    @FXML
+    private ListView<String> devList = new ListView<String>();
 
     @FXML
+    private TextField initialToAddDevToActivity;
+
+    @FXML
+    private TextField weekForChangeEnd;
+
+    @FXML
+    private TextField weekForChangeStart;
+    
+    @FXML
+    void addDevToActivityClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void askForHelpClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void backToManageProjectClick(ActionEvent event) throws IOException{
+		Viewer.primaryStage.setTitle(selectedProjectIDWithName);
+		changeScene("/projectManagement/ProjectWindow.fxml");
+    }
+
+    @FXML
+    void changeEndForActivityClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void changeStartForAcvityClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void endActivityClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removeDevClick(ActionEvent event) {
+
+    }
+    
+    @FXML
     void onAddActivityClick(ActionEvent event) throws IOException{
-    	if(activityName != null) {
+    	if(activityName != null && startWeekForActivity.getText() == "" && endWeekForActivity.getText() == "") {
     		Activity newAct = new Activity(activityName.getText());
+    		application.getProjectById(selectedProjectID).addActivity(newAct);
+    		changeScene("/projectManagement/ProjectWindow.fxml");
+    	}
+    	else if (activityName != null && startWeekForActivity.getText() != "" && endWeekForActivity.getText() != "") {
+    		int start = Integer.parseInt(startWeekForActivity.getText());
+    		int end = Integer.parseInt(endWeekForActivity.getText());
+    		Activity newAct = new Activity(activityName.getText(), start, end);
     		application.getProjectById(selectedProjectID).addActivity(newAct);
     		changeScene("/projectManagement/ProjectWindow.fxml");
     	}

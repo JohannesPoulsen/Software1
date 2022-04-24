@@ -24,8 +24,7 @@ public class controllerTest{
 	ProjectApplication application = ProjectApplication.getInstance();
 	static String selectedProjectID;
 	static String selectedProjectIDWithName;
-	static String selectedActivity;
-	
+	static String selectedActivity;	
     @FXML
     private Label currentProjectLeaderLabel = new Label();
     @FXML
@@ -51,21 +50,17 @@ public class controllerTest{
     @FXML
     private ListView<String> devList = new ListView<String>();
     private ObservableList<String> items3 =FXCollections.observableArrayList ();
-
     @FXML
     private TextField initialToAddDevToActivity;
-
     @FXML
     private TextField weekForChangeEnd;
-
     @FXML
-    private TextField weekForChangeStart;
-    
+    private TextField weekForChangeStart;    
     @FXML
-    private Label startWeekCurrent = new Label ();
-    
+    private Label startWeekCurrent = new Label ();    
     @FXML
     private Label endWeekCurrent = new Label ();
+
     
     @FXML
     void addDevToActivityClick(ActionEvent event) throws IOException{

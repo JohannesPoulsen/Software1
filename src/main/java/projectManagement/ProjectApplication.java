@@ -57,8 +57,8 @@ public final class ProjectApplication {
 	}
 
 	public Developer getDeveloperByInitials(String initials) {
-		for (Developer d : developers) {
-			if (d.getInitials().equals(initials)) {
+		for (Developer d : developers) {//1
+			if (d.getInitials().equals(initials)) {	//2
 				return d;
 			}
 		}

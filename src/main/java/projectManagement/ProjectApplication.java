@@ -49,7 +49,7 @@ public final class ProjectApplication {
 
 	public boolean doesProjectExist(String name) {
 		for (Project p : projects) {
-			if (p.getName().equals(name) && !p.getName().equals("")) {
+			if (p.getName() != null && (p.getName().equals(name) && !p.getName().equals(""))) {
 				return true;
 			}
 		}
@@ -67,6 +67,10 @@ public final class ProjectApplication {
 
 	public void resetProjectId() {
 		Project.idNumber = 1;
+	}
+	
+	public void clearProjects() {
+		projects.clear();
 	}
 
 	public List<Project> getProjects() {

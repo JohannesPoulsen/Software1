@@ -14,23 +14,23 @@ import projectManagement.Developer;
 import projectManagement.Project;
 
 public class ActivitySteps {
-	
+
 	ProjectApplication application;
 	Project project;
 	Activity activity;
 	ErrorMessageHolder errorMessage;
-	
+
 	public ActivitySteps(ProjectApplication application, ErrorMessageHolder errorMessage) {
 		this.application = application;
 		this.errorMessage = errorMessage;
 	}
-	
+
 	@Given("there exists a project")
 	public void thereExistsAProject() {
 		project = new Project();
 		try {
 			application.addProject(project);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.getMessage();
 		}
 		assertTrue(application.getProjects().contains(project));
@@ -54,7 +54,7 @@ public class ActivitySteps {
 	public void theActivityWithNameIsStoredWithinTheProject(String name) {
 		assertTrue(project.containsActivityWithName(name));
 	}
-	
+
 	@When("an activity with name {string}, expected start week {int} and end week {int} is created in the project")
 	public void anActivityWithNameExpectedStartWeekAndEndWeekIsCreatedInTheProject(String name, int start, int end) {
 		try {
@@ -70,12 +70,13 @@ public class ActivitySteps {
 	}
 
 	@Then("the activity with name {string}, expected start week {int} and end week {int} is stored within the project")
-	public void theActivityWithNameExpectedStartWeekAndEndWeekIsStoredWithinTheProject(String name, int start, int end) {
+	public void theActivityWithNameExpectedStartWeekAndEndWeekIsStoredWithinTheProject(String name, int start,
+			int end) {
 		assertTrue(project.containsActivityWithName(name));
 		assertTrue(project.getActivityByName(name).getStart() == start);
 		assertTrue(project.getActivityByName(name).getEnd() == end);
 	}
-	
+
 	@When("an activity with no name is created in the project")
 	public void anActivityWithNoNameIsCreatedInTheProject() {
 		try {
@@ -84,7 +85,7 @@ public class ActivitySteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
-	
+
 	@Given("an activity with name {string} is stored within the project")
 	public void anActivityWithNameIsStoredWithinTheProject(String name) {
 		activity = new Activity(name);
@@ -93,16 +94,16 @@ public class ActivitySteps {
 		} catch (IllegalStateException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
-	    
+
 	}
-	
+
 	@Given("there is an activity with name {string} stored in the project")
 	public void thereIsAnActivityWithNameStoredInTheProject(String name) {
 		activity = new Activity(name);
 		project.addActivity(activity);
 		assertTrue(project.containsActivityWithName(name));
 	}
-	
+
 	@When("a user assigns the developer with initials {string} to the activity")
 	public void aUserAssignsTheDeveloperWithInitialsToTheActivity(String initials) {
 		try {
@@ -111,32 +112,32 @@ public class ActivitySteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
-	
+
 	@Then("the developer with initials {string} is assigned to the activity")
 	public void theDeveloperWithInitialsIsAssignedToTheActivity(String initials) {
-	    assertTrue(activity.hasDeveloperByInitials(initials));
+		assertTrue(activity.hasDeveloperByInitials(initials));
 	}
-	
+
 	@Given("{string} is assigned to the activity")
 	public void isAssignedToTheActivity(String initials) {
-	    activity.addDeveloperByInitials(initials);
-	    assertTrue(activity.hasDeveloperByInitials(initials));
+		activity.addDeveloperByInitials(initials);
+		assertTrue(activity.hasDeveloperByInitials(initials));
 	}
 
 	@When("{string} is removed from the activity")
 	public void isRemovedFromTheActivity(String initials) {
-	    try {
-	    	activity.removeDeveloperByInitials(initials);
-	    } catch (IllegalArgumentException e) {
-	    	errorMessage.setErrorMessage(e.getMessage());
-	    }
+		try {
+			activity.removeDeveloperByInitials(initials);
+		} catch (IllegalArgumentException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
 
 	@Then("{string} is not assigned to the activity")
 	public void isNotAssignedToTheActivity(String initials) {
-	    assertFalse(activity.hasDeveloperByInitials(initials));
+		assertFalse(activity.hasDeveloperByInitials(initials));
 	}
-	
+
 	@When("an activity with no name, expected start week {int} and end week {int} is created in the project")
 	public void anActivityWithNoNameExpectedStartWeekAndEndWeekIsCreatedInTheProject(Integer start, Integer end) {
 		try {
@@ -145,7 +146,7 @@ public class ActivitySteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
-	
+
 	@When("the start week is changed to {int}")
 	public void theStartWeekIsChangedTo(int start) {
 		try {
@@ -153,14 +154,14 @@ public class ActivitySteps {
 		} catch (IllegalArgumentException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
-		
+
 	}
 
 	@Then("the start week of the activity is {int}")
 	public void theStartWeekOfTheActivityIs(int start) {
-	    assertTrue(activity.getStart() == start);
+		assertTrue(activity.getStart() == start);
 	}
-	
+
 	@When("the end week is changed to {int}")
 	public void theEndWeekIsChangedTo(Integer end) {
 		try {
@@ -172,28 +173,27 @@ public class ActivitySteps {
 
 	@Then("the end week of the activity is {int}")
 	public void theEndWeekOfTheActivityIs(int end) {
-	    assertTrue(activity.getEnd() == end);
+		assertTrue(activity.getEnd() == end);
 	}
-	
+
 	@When("the expected hour usage of the activity is set to {double}")
 	public void theExpectedHourUsageOfTheActivityIsSetTo(Double hours) {
-	    activity.setExpectedHourUsage(hours);
+		activity.setExpectedHourUsage(hours);
 	}
 
 	@Then("the expected hour usage of the activity is {double}")
 	public void theExpectedHourUsageOfTheActivityIs(Double hours) {
-	    assertTrue(activity.getExpectedHourUsage() == hours);
+		assertTrue(activity.getExpectedHourUsage() == hours);
 	}
-	
+
 	@When("the activity {string} is removed from the project")
 	public void theActivityIsRemovedFromTheProject(String name) {
-	    project.endActivityByName(name);
+		project.endActivityByName(name);
 	}
 
 	@Then("the activity {string} is not in the project")
 	public void theActivityIsNotInTheProject(String name) {
-	    assertFalse(project.containsActivityWithName(name));
+		assertFalse(project.containsActivityWithName(name));
 	}
-	
 
 }

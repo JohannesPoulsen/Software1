@@ -12,6 +12,7 @@ import projectManagement.ProjectApplication;
 public class WhiteboxTests {
 	ProjectApplication application = ProjectApplication.getInstance();
 	
+	//White box test for getDeveloperByInitials
 	@Test
 	public void testGetDeveloperByInitialsDataSetA() {
 		application.developers = new ArrayList<Developer>();

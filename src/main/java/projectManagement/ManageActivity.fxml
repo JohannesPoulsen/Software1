@@ -21,5 +21,9 @@
       <Button layoutX="297.0" layoutY="62.0" mnemonicParsing="false" onAction="#changeStartForAcvityClick" text="Start" />
       <Button layoutX="300.0" layoutY="128.0" mnemonicParsing="false" onAction="#changeEndForActivityClick" text="End" />
       <Label layoutX="261.0" layoutY="14.0" text="Change Dates" />
+      <Label fx:id="startWeekCurrent" layoutX="277.0" layoutY="67.0" prefHeight="17.0" prefWidth="15.0" />
+      <Label fx:id="endWeekCurrent" layoutX="277.0" layoutY="133.0" prefHeight="17.0" prefWidth="15.0" />
+      <Label layoutX="214.0" layoutY="67.0" text="Start Date:" />
+      <Label layoutX="216.0" layoutY="133.0" text="End Date:" />
    </children>
 </AnchorPane>

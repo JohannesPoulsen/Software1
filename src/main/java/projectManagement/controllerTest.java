@@ -76,7 +76,13 @@ public class controllerTest {
 				.setText(application.getProjectById(selectedProjectID).getProjectLeader().getInitials());
 			}
 			for (Activity activity : application.getProjectById(selectedProjectID).getActivities()) {
-				items2.add(activity.getName());
+				String item = activity.getName(); 
+				if(activity.isNeedingHelp() == true) {
+					items2.add(item + " (Need help)");
+				}
+				else {
+					items2.add(item);
+				}
 			}
 			activityList.setItems(items2);
 		}
@@ -105,7 +111,7 @@ public class controllerTest {
 
 	@FXML
 	void askForHelpClick(ActionEvent event) {
-
+		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setNeedingHelp(true);
 	}
 
 	@FXML
@@ -180,12 +186,17 @@ public class controllerTest {
 
 	@FXML
 	void onEditActivityClick(ActionEvent event) throws IOException {
-		selectedActivity = activityList.getSelectionModel().getSelectedItem();
-		if (selectedActivity != null) {
+		String selectedItem = activityList.getSelectionModel().getSelectedItem();
+		if(selectedItem.length() > 12 && selectedItem.substring(selectedItem.length()-12, selectedItem.length()).equals(" (Need help)")) {
+			selectedActivity = selectedItem.substring(0, selectedItem.length() - 12);
+		}
+		else {
+			selectedActivity = selectedItem;			
+		}
+		if (selectedItem != null) {
 			Viewer.primaryStage.setTitle(selectedActivity);
 			changeScene("/projectManagement/ManageActivity.fxml");
 		}
-
 	}
 
 	@FXML

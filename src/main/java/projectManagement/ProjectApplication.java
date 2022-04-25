@@ -39,6 +39,7 @@ public final class ProjectApplication {
 	}
 
 	public boolean projectExistsWithId(String id) {
+		assert id != null : "precondition failed";
 		for (Project p : projects) { // 1
 			if (p.getId().equals(id)) { // 2
 				return true;

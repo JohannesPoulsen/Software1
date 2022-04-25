@@ -58,12 +58,15 @@ public final class ProjectApplication {
 	}
 
 	public Developer getDeveloperByInitials(String initials) {
+		Developer developer = null;
+		assert developers!= null && initials!=null : "Precondition";		
 		for (Developer d : developers) {//1
 			if (d.getInitials().equals(initials)) {	//2
-				return d;
+				developer = d;
 			}
 		}
-		return null;
+		assert developers.contains(developer) || developer == null : "Postcondition";
+		return developer;
 	}
 
 	public void resetProjectId() {

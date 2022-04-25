@@ -10,6 +10,7 @@ public class Activity {
 	String name;
 	int start, end;
 	private double expectedHourUsage;
+	private boolean needingHelp = false;
 
 	public Activity(String name) {
 		if (!name.equals("")) {
@@ -65,6 +66,9 @@ public class Activity {
 	public void addDeveloperByInitials(String initials) {
 		if (!hasDeveloperByInitials(initials)) {
 			developers.add(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+			if (needingHelp) {
+				setNeedingHelp(false);
+			}
 		} else {
 			throw new IllegalArgumentException("Error: developer already assigned to this activity");
 		}
@@ -93,6 +97,14 @@ public class Activity {
 
 	public double getExpectedHourUsage() {
 		return this.expectedHourUsage;
+	}
+
+	public boolean isNeedingHelp() {
+		return needingHelp;
+	}
+
+	public void setNeedingHelp(boolean neddingHelp) {
+		this.needingHelp = neddingHelp;
 	}
 
 }

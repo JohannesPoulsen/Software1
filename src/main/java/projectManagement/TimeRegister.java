@@ -1,11 +1,11 @@
 package projectManagement;
 
 public class TimeRegister {
-	
+
 	Activity activity;
 	Developer developer;
 	double time = 0;
-	
+
 	public TimeRegister(Activity activity, Developer developer) {
 		this.activity = activity;
 		this.developer = developer;

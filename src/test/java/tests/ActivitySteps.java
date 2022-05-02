@@ -215,39 +215,52 @@ public class ActivitySteps {
 	public void hasTheActivityInHisActivityList(String initials) {
 		assertTrue(application.getDeveloperByInitials(initials).isAssignedToActivity(activity));
 	}
-	
+
 	@Given("{string} has no registered time to the activity")
 	public void hasNoRegisteredTimeToTheActivity(String initials) {
-	    if (application.getDeveloperByInitials(initials).hasRegisteredTimeToActivity(activity)) {
-	    	application.getDeveloperByInitials(initials).removeTimeRegisterByActivity(activity);
-	    }
+		if (application.getDeveloperByInitials(initials).hasRegisteredTimeToActivity(activity)) {
+			application.getDeveloperByInitials(initials).removeTimeRegisterByActivity(activity);
+		}
 	}
-	
+
 	@When("{string} registers {double} hours to the activity")
 	public void registersHoursToTheActivity(String initials, Double hours) {
-		application.getDeveloperByInitials(initials).registerTime(hours,activity);
+		try {
+			application.getDeveloperByInitials(initials).registerTime(hours, activity);
+		} catch (IllegalStateException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
-	
+
 	@Then("{double} hours is registered to the activity for {string}")
 	public void hoursIsRegisteredToFor(Double hours, String initials) {
-	    assertTrue(application.getDeveloperByInitials(initials).getRegisteredTimeByActivity(activity).getTime() == hours);
+		assertTrue(
+				application.getDeveloperByInitials(initials).getRegisteredTimeByActivity(activity).getTime() == hours);
 	}
-	
+
 	@Given("{string} has no registered time to the vacancy")
 	public void hasNoRegisteredTimeToThevacancy(String initials) {
 		if (application.getDeveloperByInitials(initials).getVacancy().getTime() == 0) {
-	    	application.getDeveloperByInitials(initials).getVacancy().setTime(0);
-	    }
+			application.getDeveloperByInitials(initials).getVacancy().setTime(0);
+		}
 	}
 
 	@When("{string} registers {double} hours to vacancy")
 	public void registersHoursTovacancy(String initials, Double hours) {
-		application.getDeveloperByInitials(initials).registerTime(hours,application.getDeveloperByInitials(initials).getVacancyActivity());
+		application.getDeveloperByInitials(initials).registerTime(hours,
+				application.getDeveloperByInitials(initials).getVacancyActivity());
 	}
 
 	@Then("{double} hours is registered to vacancy for {string}")
 	public void hoursIsRegisteredTovacancyFor(Double hours, String initials) {
-		assertTrue(application.getDeveloperByInitials(initials).getRegisteredTimeByActivity(application.getDeveloperByInitials(initials).getVacancyActivity()).getTime() == hours);
+		assertTrue(application.getDeveloperByInitials(initials)
+				.getRegisteredTimeByActivity(application.getDeveloperByInitials(initials).getVacancyActivity())
+				.getTime() == hours);
+	}
+
+	@Then("the total hours for {string} is {double}")
+	public void theTotalHoursForIs(String initials, Double hours) {
+		assertTrue(application.getDeveloperByInitials(initials).getTotalHours() == hours);
 	}
 
 }

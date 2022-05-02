@@ -83,7 +83,7 @@ public class controllerTest {
 
 	public void initialize() {
 		initializeProjectList();
-		
+
 		initializeActivityListManageProject();
 
 		initializeDeveloperListEditActivity();
@@ -91,6 +91,7 @@ public class controllerTest {
 		initializeTimeRegisterActivityList();
 
 	}
+
 	public void initializeProjectList() {
 		for (Project project : application.getProjects()) {
 			if (project.getName() == "") {
@@ -102,7 +103,6 @@ public class controllerTest {
 		list.setItems(items);
 	}
 
-	
 	public void initializeActivityListManageProject() {
 		if (selectedProjectID != null) {
 			if (application.getProjectById(selectedProjectID).getProjectLeader() != null) {
@@ -146,6 +146,7 @@ public class controllerTest {
 			timerRegisterList.setItems(items4);
 		}
 	}
+
 	@FXML
 	void registerTimeClick(ActionEvent event) throws Exception {
 		Activity act = developerForTimeReg.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());

@@ -26,7 +26,9 @@ public class Developer {
 	}
 
 	public void addActivity(Activity activity) {
-		activities.add(activity);
+		if (!activities.contains(activity)) {
+			activities.add(activity);
+		}
 	}
 
 	public boolean isAssignedToActivity(Activity activity) {
@@ -36,10 +38,10 @@ public class Developer {
 	public List<Activity> getActivities() {
 		return activities;
 	}
-	
+
 	public TimeRegister getRegisteredTimeByActivity(Activity activity) {
-		for(TimeRegister timeRegister : timeRegisterList ) {
-			if(timeRegister.getActivity() == activity) {
+		for (TimeRegister timeRegister : timeRegisterList) {
+			if (timeRegister.getActivity() == activity) {
 				return timeRegister;
 			}
 		}
@@ -47,7 +49,7 @@ public class Developer {
 	}
 
 	public boolean hasRegisteredTimeToActivity(Activity activity) {
-		if (getRegisteredTimeByActivity(activity) != null) {			
+		if (getRegisteredTimeByActivity(activity) != null) {
 			return true;
 		}
 		return false;
@@ -57,7 +59,10 @@ public class Developer {
 		timeRegisterList.remove(getRegisteredTimeByActivity(activity));
 	}
 
-	public void registerTime(Double hours, Activity activity) {
+	public void registerTime(double hours, Activity activity) {
+		if (!activities.contains(activity)) {
+			throw new IllegalStateException("Error: developer not assigned to this activity");
+		}
 		if (!hasRegisteredTimeToActivity(activity)) {
 			TimeRegister timeRegister = new TimeRegister(activity, this);
 			addTimeRegister(timeRegister);
@@ -72,7 +77,7 @@ public class Developer {
 	public TimeRegister getVacancy() {
 		return vacancy;
 	}
-	
+
 	public Activity getActivityByName(String name) {
 		for (Activity a : activities) {
 			if (a.getName().equals(name)) {
@@ -80,6 +85,14 @@ public class Developer {
 			}
 		}
 		return null;
+	}
+
+	public double getTotalHours() {
+		double totalHours = 0;
+		for (TimeRegister timeRegister : timeRegisterList) {
+			totalHours += timeRegister.getTime();
+		}
+		return totalHours;
 	}
 
 }

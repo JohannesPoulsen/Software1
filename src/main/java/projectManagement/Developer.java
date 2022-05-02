@@ -6,11 +6,19 @@ import java.util.List;
 public class Developer {
 
 	String initials;
+	private Activity vacancyActivity = new Activity("vacancy");
+	private TimeRegister vacancy = new TimeRegister(vacancyActivity, this);
 	private ArrayList<Activity> activities = new ArrayList<Activity>();
 	private ArrayList<TimeRegister> timeRegisterList = new ArrayList<TimeRegister>();
 
 	public Developer(String initials) {
 		this.initials = initials;
+		this.activities.add(vacancyActivity);
+		this.timeRegisterList.add(vacancy);
+	}
+
+	public Activity getVacancyActivity() {
+		return vacancyActivity;
 	}
 
 	public String getInitials() {
@@ -53,12 +61,16 @@ public class Developer {
 		if (!hasRegisteredTimeToActivity(activity)) {
 			TimeRegister timeRegister = new TimeRegister(activity, this);
 			addTimeRegister(timeRegister);
-		} 
+		}
 		getRegisteredTimeByActivity(activity).add(hours);
 	}
 
 	private void addTimeRegister(TimeRegister timeRegister) {
 		timeRegisterList.add(timeRegister);
+	}
+
+	public TimeRegister getVacancy() {
+		return vacancy;
 	}
 
 }

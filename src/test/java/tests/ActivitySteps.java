@@ -232,5 +232,22 @@ public class ActivitySteps {
 	public void hoursIsRegisteredToFor(Double hours, String initials) {
 	    assertTrue(application.getDeveloperByInitials(initials).getRegisteredTimeByActivity(activity).getTime() == hours);
 	}
+	
+	@Given("{string} has no registered time to the vacancy")
+	public void hasNoRegisteredTimeToThevacancy(String initials) {
+		if (application.getDeveloperByInitials(initials).getVacancy().getTime() == 0) {
+	    	application.getDeveloperByInitials(initials).getVacancy().setTime(0);
+	    }
+	}
+
+	@When("{string} registers {double} hours to vacancy")
+	public void registersHoursTovacancy(String initials, Double hours) {
+		application.getDeveloperByInitials(initials).registerTime(hours,application.getDeveloperByInitials(initials).getVacancyActivity());
+	}
+
+	@Then("{double} hours is registered to vacancy for {string}")
+	public void hoursIsRegisteredTovacancyFor(Double hours, String initials) {
+		assertTrue(application.getDeveloperByInitials(initials).getRegisteredTimeByActivity(application.getDeveloperByInitials(initials).getVacancyActivity()).getTime() == hours);
+	}
 
 }

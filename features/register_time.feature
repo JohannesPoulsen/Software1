@@ -18,4 +18,10 @@ Scenario: A user registers time to an activity
   When "huba" registers 4.5 hours to the activity
   Then 4.5 hours is registered to the activity for "huba"
 
+Scenario: A user registers time to vacancy
+	Given there exists a project
+  And the company has an employee with the initial "huba"
+  And "huba" has no registered time to the vacancy
+  When "huba" registers 4.5 hours to vacancy
+  Then 4.5 hours is registered to vacancy for "huba"
 

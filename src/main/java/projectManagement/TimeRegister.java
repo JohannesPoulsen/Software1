@@ -35,4 +35,8 @@ public class TimeRegister {
 		return time;
 	}
 
+	public void setTime(double time) {
+		this.time = time;
+	}
+
 }

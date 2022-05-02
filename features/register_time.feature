@@ -1,7 +1,13 @@
 Feature: Register time
+	Description: A user registers time to an activity
+	Actors: All
+	
+Scenario: A user registers time to an activity
+	Given there exists a project
+  And the company has an employee with the initial "huba"
+  And an activity with name "Database fix" is stored within the project
+  When a user assigns the developer with initials "huba" to the activity
+  Then "huba" has the activity in his activity list
+  
 
-#Scenario: Developer registers time to an activity
-#	Given there is a project with id 220001
-#	And an activity with name "Database fix" is stored within the project
-#	When a developer registers 4.0 hours on the activity
-#	Then the 4.0 registered hours is added to the developers registered time
+

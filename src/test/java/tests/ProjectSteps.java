@@ -19,7 +19,7 @@ public class ProjectSteps {
 	private ErrorMessageHolder errorMessage;
 
 	public ProjectSteps(ProjectApplication application, ErrorMessageHolder errorMessage) {
-		this.application = application;
+		this.application = application.getInstance();
 		this.errorMessage = errorMessage;
 	}
 

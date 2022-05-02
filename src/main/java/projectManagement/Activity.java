@@ -64,8 +64,10 @@ public class Activity {
 	}
 
 	public void addDeveloperByInitials(String initials) {
-		if (!hasDeveloperByInitials(initials)) {
+		if (ProjectApplication.getInstance().getDeveloperByInitials(initials) != null
+				&& !hasDeveloperByInitials(initials)) {
 			developers.add(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+			ProjectApplication.getInstance().getDeveloperByInitials(initials).addActivity(this);
 			if (needingHelp) {
 				setNeedingHelp(false);
 			}
@@ -75,7 +77,10 @@ public class Activity {
 	}
 
 	public boolean hasDeveloperByInitials(String initials) {
-		return developers.contains(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+		if (ProjectApplication.getInstance().getDeveloperByInitials(initials) != null) {
+			return developers.contains(ProjectApplication.getInstance().getDeveloperByInitials(initials));
+		} else
+			return false;
 	}
 
 	public List<Developer> getDevelopers() {

@@ -21,7 +21,7 @@ public class ActivitySteps {
 	ErrorMessageHolder errorMessage;
 
 	public ActivitySteps(ProjectApplication application, ErrorMessageHolder errorMessage) {
-		this.application = application;
+		this.application = application.getInstance();
 		this.errorMessage = errorMessage;
 	}
 
@@ -195,20 +195,25 @@ public class ActivitySteps {
 	public void theActivityIsNotInTheProject(String name) {
 		assertFalse(project.containsActivityWithName(name));
 	}
-	
+
 	@When("the activity is marked as needing help")
 	public void theActivityIsMarkedAsNeedingHelp() {
-	    activity.setNeedingHelp(true);
+		activity.setNeedingHelp(true);
 	}
 
 	@Then("the activity has been marked as needing help")
 	public void theActivityHasBeenMarkedAsNeedingHelp() {
-	    assertTrue(activity.isNeedingHelp());
+		assertTrue(activity.isNeedingHelp());
 	}
-	
+
 	@Then("the activity is not marked as needing help")
 	public void theActivityIsNotMarkedAsNeedingHelp() {
-	    assertFalse(activity.isNeedingHelp());
+		assertFalse(activity.isNeedingHelp());
+	}
+
+	@Then("{string} has the activity in his activity list")
+	public void hasTheActivityInHisActivityList(String initials) {
+		assertTrue(application.getDeveloperByInitials(initials).isAssignedToActivity(activity));
 	}
 
 }

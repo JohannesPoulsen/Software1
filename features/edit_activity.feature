@@ -54,3 +54,5 @@ Scenario: An activity is removed
   And there is an activity with name "Database fix" stored in the project
   When the activity "Database fix" is removed from the project
   Then the activity "Database fix" is not in the project
+
+  

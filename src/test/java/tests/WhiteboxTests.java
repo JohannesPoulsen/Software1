@@ -70,6 +70,7 @@ public class WhiteboxTests {
 		assertEquals(project2.getId(), "220002");
 		assertTrue(application.projectExistsWithId("220002"));
 	}
+	
 	// White box test for getProjectById
 	@Test
 	public void testGetProjectByIdDataSetA() {

@@ -39,7 +39,7 @@ public final class ProjectApplication {
 	}
 
 	public boolean projectExistsWithId(String id) {
-		assert id != null: "precondition failed";
+		assert id != null : "precondition failed";
 		for (Project p : projects) { // 1
 			if (p.getId().equals(id)) { // 2
 				assert projects.contains(getProjectById(id)) : "postcondition failed";
@@ -61,9 +61,9 @@ public final class ProjectApplication {
 
 	public Developer getDeveloperByInitials(String initials) {
 		Developer developer = null;
-		assert developers!= null && initials!=null : "Precondition";		
-		for (Developer d : developers) {//1
-			if (d.getInitials().equals(initials)) {	//2
+		assert developers != null && initials != null : "Precondition";
+		for (Developer d : developers) {// 1
+			if (d.getInitials().equals(initials)) { // 2
 				developer = d;
 			}
 		}
@@ -74,7 +74,7 @@ public final class ProjectApplication {
 	public void resetProjectId() {
 		Project.idNumber = 1;
 	}
-	
+
 	public void clearProjects() {
 		projects.clear();
 	}

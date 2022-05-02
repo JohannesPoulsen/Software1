@@ -88,11 +88,14 @@ public final class ProjectApplication {
 	}
 
 	public Project getProjectById(String id) {
+		Project project = null;
+		assert projects != null && id != null : "Precondition";
 		for (Project p : projects) {
 			if (p.getId().equals(id)) {
 				return p;
 			}
 		}
+		assert projects.contains(project) || project == null : "Postcondition";
 		return null;
 	}
 

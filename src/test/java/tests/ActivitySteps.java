@@ -215,5 +215,22 @@ public class ActivitySteps {
 	public void hasTheActivityInHisActivityList(String initials) {
 		assertTrue(application.getDeveloperByInitials(initials).isAssignedToActivity(activity));
 	}
+	
+	@Given("{string} has no registered time to the activity")
+	public void hasNoRegisteredTimeToTheActivity(String initials) {
+	    if (application.getDeveloperByInitials(initials).hasRegisteredTimeToActivity(activity)) {
+	    	application.getDeveloperByInitials(initials).removeTimeRegisterByActivity(activity);
+	    }
+	}
+	
+	@When("{string} registers {double} hours to the activity")
+	public void registersHoursToTheActivity(String initials, Double hours) {
+		application.getDeveloperByInitials(initials).registerTime(hours,activity);
+	}
+	
+	@Then("{double} hours is registered to the activity for {string}")
+	public void hoursIsRegisteredToFor(Double hours, String initials) {
+	    assertTrue(application.getDeveloperByInitials(initials).getRegisteredTimeByActivity(activity).getTime() == hours);
+	}
 
 }

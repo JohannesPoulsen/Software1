@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
 public class controllerTest {
 
@@ -25,6 +26,7 @@ public class controllerTest {
 	static String selectedProjectID;
 	static String selectedProjectIDWithName;
 	static String selectedActivity;
+	static Developer developerForTimeReg = null;
 	@FXML
 	private Label currentProjectLeaderLabel = new Label();
 	@FXML
@@ -60,8 +62,36 @@ public class controllerTest {
 	private Label startWeekCurrent = new Label();
 	@FXML
 	private Label endWeekCurrent = new Label();
+	@FXML
+	private Label currentDevTimeRegLabel = new Label();
+
+	@FXML
+	private Label timeForActivityLabel = new Label();
+
+	@FXML
+	private TextField timeForTimeRegisterTextField;
+
+	@FXML
+	private ListView<String> timerRegisterList = new ListView<String>();
+	private ObservableList<String> items4 = FXCollections.observableArrayList();
+
+	@FXML
+	private Label totalTimeLabel = new Label();
+
+	@FXML
+	private TextField userForTimeReg;
 
 	public void initialize() {
+		initializeProjectList();
+		
+		initializeActivityListManageProject();
+
+		initializeDeveloperListEditActivity();
+
+		initializeTimeRegisterActivityList();
+
+	}
+	public void initializeProjectList() {
 		for (Project project : application.getProjects()) {
 			if (project.getName() == "") {
 				items.add(project.getId());
@@ -70,23 +100,28 @@ public class controllerTest {
 			}
 		}
 		list.setItems(items);
+	}
+
+	
+	public void initializeActivityListManageProject() {
 		if (selectedProjectID != null) {
 			if (application.getProjectById(selectedProjectID).getProjectLeader() != null) {
 				currentProjectLeaderLabel
-				.setText(application.getProjectById(selectedProjectID).getProjectLeader().getInitials());
+						.setText(application.getProjectById(selectedProjectID).getProjectLeader().getInitials());
 			}
 			for (Activity activity : application.getProjectById(selectedProjectID).getActivities()) {
-				String item = activity.getName(); 
-				if(activity.isNeedingHelp() == true) {
+				String item = activity.getName();
+				if (activity.isNeedingHelp() == true) {
 					items2.add(item + " (Need help)");
-				}
-				else {
+				} else {
 					items2.add(item);
 				}
 			}
 			activityList.setItems(items2);
 		}
-		
+	}
+
+	public void initializeDeveloperListEditActivity() {
 		if (selectedActivity != null) {
 			String start = String.valueOf(
 					application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).getStart());
@@ -101,7 +136,54 @@ public class controllerTest {
 			devList.setItems(items3);
 		}
 	}
-	
+
+	public void initializeTimeRegisterActivityList() {
+		if (developerForTimeReg != null) {
+
+			for (Activity activity : developerForTimeReg.getActivities()) {
+				items4.add(activity.getName());
+			}
+			timerRegisterList.setItems(items4);
+		}
+	}
+	@FXML
+	void registerTimeClick(ActionEvent event) throws Exception {
+		Activity act = developerForTimeReg.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
+		double hours = Double.parseDouble(timeForTimeRegisterTextField.getText());
+		developerForTimeReg.registerTime(hours, act);
+		changeScene("/projectManagement/TimeRegisterWindow.fxml");
+	}
+
+	@FXML
+	void onListTimeRegClick(MouseEvent event) throws IOException {
+		String s = "0.0";
+		if (timerRegisterList.getSelectionModel().getSelectedItem() != null) {
+			currentDevTimeRegLabel.setText(developerForTimeReg.getInitials());
+			Activity act = developerForTimeReg
+					.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
+			if (developerForTimeReg.getRegisteredTimeByActivity(act) != null) {
+				TimeRegister tR = developerForTimeReg.getRegisteredTimeByActivity(act);
+				s = String.valueOf(tR.getTime());
+
+			}
+			timeForActivityLabel.setText(s);
+		}
+	}
+
+	@FXML
+	void continueToTimeRegClick(ActionEvent event) throws IOException {
+		if (application.getDeveloperByInitials(userForTimeReg.getText()) != null) {
+			developerForTimeReg = application.getDeveloperByInitials(userForTimeReg.getText());
+			changeScene("/projectManagement/TimeRegisterWindow.fxml");
+		}
+
+	}
+
+	@FXML
+	void backToEnterUserInitials(ActionEvent event) throws IOException {
+		changeScene("/projectManagement/enterUserForTimeRegWindow.fxml");
+	}
+
 	@FXML
 	void addDevToActivityClick(ActionEvent event) throws IOException {
 		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity)
@@ -187,11 +269,11 @@ public class controllerTest {
 	@FXML
 	void onEditActivityClick(ActionEvent event) throws IOException {
 		String selectedItem = activityList.getSelectionModel().getSelectedItem();
-		if(selectedItem.length() > 12 && selectedItem.substring(selectedItem.length()-12, selectedItem.length()).equals(" (Need help)")) {
+		if (selectedItem.length() > 12
+				&& selectedItem.substring(selectedItem.length() - 12, selectedItem.length()).equals(" (Need help)")) {
 			selectedActivity = selectedItem.substring(0, selectedItem.length() - 12);
-		}
-		else {
-			selectedActivity = selectedItem;			
+		} else {
+			selectedActivity = selectedItem;
 		}
 		if (selectedItem != null) {
 			Viewer.primaryStage.setTitle(selectedActivity);
@@ -220,7 +302,6 @@ public class controllerTest {
 
 	}
 
-
 	@FXML
 	void onCreateProjectClick(ActionEvent event) throws Exception {
 		if (!application.doesProjectExist(project_name_TF.getText())) {
@@ -228,7 +309,7 @@ public class controllerTest {
 			application.addProject(projectToAdd);
 			application.setProjectLeaderByInitials(projectToAdd, project_leader_TF.getText());
 			changeScene("/projectManagement/mainMenu.fxml");
-		} 
+		}
 
 	}
 
@@ -245,7 +326,8 @@ public class controllerTest {
 	}
 
 	@FXML
-	void openRegisterTimeClick(ActionEvent event) {
+	void openRegisterTimeClick(ActionEvent event) throws IOException {
+		changeScene("/projectManagement/enterUserForTimeRegWindow.fxml");
 
 	}
 

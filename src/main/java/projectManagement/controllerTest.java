@@ -8,16 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
 public class controllerTest {
@@ -81,6 +76,7 @@ public class controllerTest {
 	@FXML
 	private TextField userForTimeReg;
 
+	// for creating the lists in the application
 	public void initialize() {
 		initializeProjectList();
 		initializeActivityListManageProject();
@@ -143,20 +139,25 @@ public class controllerTest {
 		}
 	}
 
+	// registers time for the activity selected under the specified dev
 	@FXML
 	void registerTimeClick(ActionEvent event) throws IOException {
-		//Activity selected from list of activities of selected developer 
+		// Activity selected from list of activities of selected dev
 		Activity act = developerForTimeReg.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
+		// hours dev has spent on selected activity
 		double hours = Double.parseDouble(timeForTimeRegisterTextField.getText());
 		developerForTimeReg.registerTime(hours, act);
 		changeScene("/projectManagement/TimeRegisterWindow.fxml");
 	}
 
+	// updates the window everytime the list of activities is being clicked
 	@FXML
 	void onListTimeRegClick(MouseEvent event) throws IOException {
 		String s = "0.0";
+		// label for current developer doing time registration
+		currentDevTimeRegLabel.setText(developerForTimeReg.getInitials());
+		// if an activity is selected from the list
 		if (timerRegisterList.getSelectionModel().getSelectedItem() != null) {
-			currentDevTimeRegLabel.setText(developerForTimeReg.getInitials());
 			Activity act = developerForTimeReg
 					.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
 			if (developerForTimeReg.getRegisteredTimeByActivity(act) != null) {
@@ -164,24 +165,37 @@ public class controllerTest {
 				s = String.valueOf(tR.getTime());
 
 			}
+			// sets the time label for the activity
 			timeForActivityLabel.setText(s);
 		}
 	}
 
+	// when a dev is entered, changes the scene to list activities for the dev
 	@FXML
 	void continueToTimeRegClick(ActionEvent event) throws IOException {
 		if (application.getDeveloperByInitials(userForTimeReg.getText()) != null) {
 			developerForTimeReg = application.getDeveloperByInitials(userForTimeReg.getText());
+			Viewer.primaryStage.setTitle("Time Registration for: " + developerForTimeReg.getInitials());
 			changeScene("/projectManagement/TimeRegisterWindow.fxml");
 		}
-
 	}
 
+	// back to enter initials for time registration window from time registration
+	// window
 	@FXML
 	void backToEnterUserInitials(ActionEvent event) throws IOException {
+		Viewer.primaryStage.setTitle("Enter Initials");
 		changeScene("/projectManagement/enterUserForTimeRegWindow.fxml");
 	}
 
+	// sets scene to select dev from main menu
+	@FXML
+	void openRegisterTimeClick(ActionEvent event) throws IOException {
+		Viewer.primaryStage.setTitle("Enter Initials");
+		changeScene("/projectManagement/enterUserForTimeRegWindow.fxml");
+	}
+
+	// adds dev to specific activity in specific project
 	@FXML
 	void addDevToActivityClick(ActionEvent event) throws IOException {
 		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity)
@@ -189,11 +203,17 @@ public class controllerTest {
 		changeScene("/projectManagement/ManageActivity.fxml");
 	}
 
+	// marks need help for selected activity and changes the scene back to the
+	// project window
 	@FXML
-	void askForHelpClick(ActionEvent event) {
+	void askForHelpClick(ActionEvent event) throws IOException {
 		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setNeedingHelp(true);
+		Viewer.primaryStage.setTitle(selectedProjectIDWithName);
+		selectedActivity = null;
+		changeScene("/projectManagement/ProjectWindow.fxml");
 	}
 
+	// goes back to the project window
 	@FXML
 	void backToManageProjectClick(ActionEvent event) throws IOException {
 		Viewer.primaryStage.setTitle(selectedProjectIDWithName);
@@ -201,6 +221,7 @@ public class controllerTest {
 		changeScene("/projectManagement/ProjectWindow.fxml");
 	}
 
+	// changes the end week for activity when editing the activity
 	@FXML
 	void changeEndForActivityClick(ActionEvent event) throws IOException {
 		int end = Integer.parseInt(weekForChangeEnd.getText());
@@ -208,6 +229,7 @@ public class controllerTest {
 		changeScene("/projectManagement/ManageActivity.fxml");
 	}
 
+	// changes the start week for activity when editing the activity
 	@FXML
 	void changeStartForAcvityClick(ActionEvent event) throws IOException {
 		int start = Integer.parseInt(weekForChangeStart.getText());
@@ -215,6 +237,7 @@ public class controllerTest {
 		changeScene("/projectManagement/ManageActivity.fxml");
 	}
 
+	// ends the activity that is being edited
 	@FXML
 	void endActivityClick(ActionEvent event) throws IOException {
 		Project project = application.getProjectById(selectedProjectID);
@@ -225,6 +248,7 @@ public class controllerTest {
 
 	}
 
+	// removes the selected dev from the activity that is being edited
 	@FXML
 	void removeDevClick(ActionEvent event) throws IOException {
 		Project project = application.getProjectById(selectedProjectID);
@@ -233,6 +257,7 @@ public class controllerTest {
 		changeScene("/projectManagement/ManageActivity.fxml");
 	}
 
+	// add an activity to the specific project
 	@FXML
 	void onAddActivityClick(ActionEvent event) throws IOException {
 		if (activityName != null && startWeekForActivity.getText() == "" && endWeekForActivity.getText() == "") {
@@ -248,12 +273,14 @@ public class controllerTest {
 		}
 	}
 
+	// back to list of projects in the application
 	@FXML
 	void backToProjects(ActionEvent event) throws IOException {
 		Viewer.primaryStage.setTitle("Manage Project");
 		changeScene("/projectManagement/manageProjectWindow.fxml");
 	}
 
+	// changes the leader of the selected project
 	@FXML
 	void onChangeProjectLeaderClick(ActionEvent event) throws IOException {
 		if (application.getDeveloperByInitials(initialsForChangeLeader.getText()) != null) {
@@ -264,6 +291,8 @@ public class controllerTest {
 
 	}
 
+	// opens manage activity window for the selected activity under the specific
+	// project
 	@FXML
 	void onEditActivityClick(ActionEvent event) throws IOException {
 		String selectedItem = activityList.getSelectionModel().getSelectedItem();
@@ -279,6 +308,7 @@ public class controllerTest {
 		}
 	}
 
+	// changes the name of the project being managed
 	@FXML
 	void onChangeProjectNameClick(ActionEvent event) throws IOException {
 		if (!application.doesProjectExist(nameForChangeProjectName.getText())) {
@@ -290,6 +320,7 @@ public class controllerTest {
 		}
 	}
 
+	// ends the project being managed
 	@FXML
 	void onEndProjectClick(ActionEvent event) throws IOException {
 		application.endProject(application.getProjectById(selectedProjectID));
@@ -300,6 +331,7 @@ public class controllerTest {
 
 	}
 
+	// creates a new project in the application
 	@FXML
 	void onCreateProjectClick(ActionEvent event) throws Exception {
 		if (!application.doesProjectExist(project_name_TF.getText())) {
@@ -311,30 +343,28 @@ public class controllerTest {
 
 	}
 
+	// opens a window with a list of the projects in the application
 	@FXML
 	void openManageProjectsClick(ActionEvent event) throws IOException {
 		Viewer.primaryStage.setTitle("Manage Project");
 		changeScene("/projectManagement/manageProjectWindow.fxml");
 	}
 
+	// opens window for project creation
 	@FXML
 	void openProjectWindowClick(ActionEvent event) throws IOException {
 		Viewer.primaryStage.setTitle("Create Project");
 		changeScene("/projectManagement/CreateProjectWindow.fxml");
 	}
 
-	@FXML
-	void openRegisterTimeClick(ActionEvent event) throws IOException {
-		changeScene("/projectManagement/enterUserForTimeRegWindow.fxml");
-
-	}
-
+	// takes the user to the main/opening window
 	@FXML
 	void backToMainMenuClick(ActionEvent event) throws IOException {
 		Viewer.primaryStage.setTitle("Welcome!");
 		changeScene("/projectManagement/mainMenu.fxml");
 	}
 
+	// opens a window for the selected project for the user to manage it
 	@FXML
 	void manageProjectClick(ActionEvent event) throws IOException {
 		selectedProjectIDWithName = list.getSelectionModel().getSelectedItem();
@@ -344,6 +374,7 @@ public class controllerTest {
 
 	}
 
+	// changes the scene to the fxml file specifed
 	public void changeScene(String fxml) throws IOException {
 		Parent pane = FXMLLoader.load(getClass().getResource(fxml));
 		Scene scene = new Scene(pane);

@@ -83,13 +83,9 @@ public class controllerTest {
 
 	public void initialize() {
 		initializeProjectList();
-
 		initializeActivityListManageProject();
-
 		initializeDeveloperListEditActivity();
-
 		initializeTimeRegisterActivityList();
-
 	}
 
 	public void initializeProjectList() {
@@ -148,7 +144,8 @@ public class controllerTest {
 	}
 
 	@FXML
-	void registerTimeClick(ActionEvent event) throws Exception {
+	void registerTimeClick(ActionEvent event) throws IOException {
+		//Activity selected from list of activities of selected developer 
 		Activity act = developerForTimeReg.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
 		double hours = Double.parseDouble(timeForTimeRegisterTextField.getText());
 		developerForTimeReg.registerTime(hours, act);

@@ -131,7 +131,7 @@ public class controllerTest {
 
 	public void initializeTimeRegisterActivityList() {
 		if (developerForTimeReg != null) {
-
+			totalTimeLabel.setText(String.valueOf(developerForTimeReg.getTotalHours()));
 			for (Activity activity : developerForTimeReg.getActivities()) {
 				items4.add(activity.getName());
 			}

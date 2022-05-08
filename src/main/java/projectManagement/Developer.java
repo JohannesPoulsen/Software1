@@ -6,10 +6,10 @@ import java.util.List;
 public class Developer {
 
 	String initials;
-	private Activity vacancyActivity = new Activity("vacancy");
-	private TimeRegister vacancy = new TimeRegister(vacancyActivity, this);
-	private ArrayList<Activity> activities = new ArrayList<Activity>();
-	private ArrayList<TimeRegister> timeRegisterList = new ArrayList<TimeRegister>();
+	private Activity vacancyActivity = new Activity("vacancy"); // activity to register vacation, sickness and more to
+	private TimeRegister vacancy = new TimeRegister(vacancyActivity, this); // Tracks the time registered to vacancy
+	private ArrayList<Activity> activities = new ArrayList<Activity>(); // All activities the developers is assigned to
+	private ArrayList<TimeRegister> timeRegisterList = new ArrayList<TimeRegister>(); // Keeps track of time registered
 
 	public Developer(String initials) {
 		this.initials = initials;
@@ -39,7 +39,7 @@ public class Developer {
 		return activities;
 	}
 
-	public TimeRegister getRegisteredTimeByActivity(Activity activity) {
+	public TimeRegister getRegisteredTimeByActivity(Activity activity) { // returns registered time to given activity
 		for (TimeRegister timeRegister : timeRegisterList) {
 			if (timeRegister.getActivity() == activity) {
 				return timeRegister;
@@ -59,7 +59,9 @@ public class Developer {
 		timeRegisterList.remove(getRegisteredTimeByActivity(activity));
 	}
 
-	public void registerTime(double hours, Activity activity) {
+	public void registerTime(double hours, Activity activity) { // registers time to given activity. Creates new
+																// TimeRegister object if no time has been registered
+		hours = Math.round(hours * 10.0) / 10.0;
 		if (!activities.contains(activity)) {
 			throw new IllegalStateException("Error: developer not assigned to this activity");
 		}
@@ -87,7 +89,7 @@ public class Developer {
 		return null;
 	}
 
-	public double getTotalHours() {
+	public double getTotalHours() { // Computes the total hours worked for developer
 		double totalHours = 0;
 		for (TimeRegister timeRegister : timeRegisterList) {
 			totalHours += timeRegister.getTime();

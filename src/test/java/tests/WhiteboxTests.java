@@ -70,15 +70,15 @@ public class WhiteboxTests {
 		assertEquals(project2.getId(), "220002");
 		assertTrue(application.projectExistsWithId("220002"));
 	}
-	
+
 	// White box test for getProjectById
 	@Test
 	public void testGetProjectByIdDataSetA() {
 		application.clearProjects();
 		assertTrue(application.getProjects().isEmpty());
-		assertEquals(application.getProjectById("220001"),null);
-		
-			}
+		assertEquals(application.getProjectById("220001"), null);
+
+	}
 
 	@Test
 	public void testGetProjectByIdDataSetB() throws Exception {
@@ -88,7 +88,7 @@ public class WhiteboxTests {
 		Project project = new Project();
 		application.addProject(project);
 		assertEquals(application.getProjectById("220002"), null);
-			}
+	}
 
 	@Test
 	public void testGetProjectByIdDataSetC() throws Exception {
@@ -99,5 +99,5 @@ public class WhiteboxTests {
 		application.addProject(project);
 		assertEquals(application.getProjectById("220001"), project);
 
-			}
+	}
 }

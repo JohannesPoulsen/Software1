@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Activity {
 
-	Project project;
-	ArrayList<Developer> developers = new ArrayList<Developer>();
+	Project project; // Project that the activity is part of
+	ArrayList<Developer> developers = new ArrayList<Developer>(); // developers assigned to the activity
 	String name;
-	int start, end;
+	int start, end; // Start and end week
 	private double expectedHourUsage;
 	private boolean needingHelp = false;
 
@@ -63,7 +63,8 @@ public class Activity {
 		}
 	}
 
-	public void addDeveloperByInitials(String initials) {
+	public void addDeveloperByInitials(String initials) { // Adds developer to the activity from the application's list
+															// of developers
 		if (ProjectApplication.getInstance().getDeveloperByInitials(initials) != null
 				&& !hasDeveloperByInitials(initials)) {
 			developers.add(ProjectApplication.getInstance().getDeveloperByInitials(initials));

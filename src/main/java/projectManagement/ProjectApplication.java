@@ -7,7 +7,7 @@ public final class ProjectApplication {
 
 	private static ProjectApplication instance;
 
-	public static ProjectApplication getInstance() {
+	public static ProjectApplication getInstance() { // Singleton af vores program
 		if (instance == null) {
 			instance = new ProjectApplication();
 		}
@@ -38,7 +38,7 @@ public final class ProjectApplication {
 		}
 	}
 
-	public boolean projectExistsWithId(String id) {
+	public boolean projectExistsWithId(String id) { // checks whether a project exists with the specified id
 		assert id != null && ProjectApplication.getInstance().projects != null : "precondition failed";
 		for (Project p : projects) { // 1
 			if (p.getId().equals(id)) { // 2
@@ -50,7 +50,7 @@ public final class ProjectApplication {
 		return false; // 3
 	}
 
-	public boolean doesProjectExist(String name) {
+	public boolean doesProjectExist(String name) { // checks whether a project exists with the specified name
 		for (Project p : projects) {
 			if (p.getName() != null && (p.getName().equals(name) && !p.getName().equals(""))) {
 				return true;
@@ -71,11 +71,11 @@ public final class ProjectApplication {
 		return developer;
 	}
 
-	public void resetProjectId() {
+	public void resetProjectId() { // Used when the id number of new projects needs to be reset
 		Project.idNumber = 1;
 	}
 
-	public void clearProjects() {
+	public void clearProjects() { // Removes all current projects
 		projects.clear();
 	}
 

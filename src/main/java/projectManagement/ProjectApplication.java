@@ -8,17 +8,20 @@ import java.util.stream.Collectors;
 public final class ProjectApplication {		//s216161
 
 	private static ProjectApplication instance;
-	
-	public static ProjectApplication getInstance() { // Singleton af vores program
+
+	public static ProjectApplication getInstance() { // Singleton to initialize project
 		if (instance == null) {
 			instance = new ProjectApplication();
 		}
 		return instance;
 	}
 
-	// midlertidig test dev
+	// developers in the application
 	Developer tester1 = new Developer("huba");
-	Developer tester2 = new Developer("joe");
+	Developer tester2 = new Developer("olwi");
+	Developer tester3 = new Developer("soko");
+	Developer tester4 = new Developer("maha");
+	Developer tester5 = new Developer("jopo");
 	//
 	public ArrayList<Developer> developers;
 
@@ -27,9 +30,13 @@ public final class ProjectApplication {		//s216161
 	public ProjectApplication() {
 		projects = new ArrayList<Project>();
 		developers = new ArrayList<Developer>();
-		// til test af developer:
+		//developers added to the application
 		developers.add(tester1);
 		developers.add(tester2);
+		developers.add(tester3);
+		developers.add(tester4);
+		developers.add(tester5);
+		
 	}
 
 	public void addProject(Project project) throws Exception {

@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="261.0" prefWidth="316.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectManagement.controllerTest">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="261.0" prefWidth="332.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectManagement.controllerTest">
    <children>
       <ListView fx:id="timerRegisterList" layoutX="14.0" layoutY="27.0" onMouseClicked="#onListTimeRegClick" prefHeight="187.0" prefWidth="200.0" />
       <Button layoutX="260.0" layoutY="222.0" mnemonicParsing="false" onAction="#backToEnterUserInitials" text="Back" />

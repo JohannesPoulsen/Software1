@@ -142,12 +142,16 @@ public class controllerTest {
 	// registers time for the activity selected under the specified dev
 	@FXML
 	void registerTimeClick(ActionEvent event) throws IOException {
-		// Activity selected from list of activities of selected dev
-		Activity act = developerForTimeReg.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
-		// hours dev has spent on selected activity
-		double hours = Double.parseDouble(timeForTimeRegisterTextField.getText());
-		developerForTimeReg.registerTime(hours, act);
-		changeScene("/projectManagement/TimeRegisterWindow.fxml");
+		try {
+			// Activity selected from list of activities of selected dev
+			Activity act = developerForTimeReg.getActivityByName(timerRegisterList.getSelectionModel().getSelectedItem());
+			// hours dev has spent on selected activity
+			double hours = Double.parseDouble(timeForTimeRegisterTextField.getText());
+			developerForTimeReg.registerTime(hours, act);
+			changeScene("/projectManagement/TimeRegisterWindow.fxml");
+		} catch (NumberFormatException e) {
+		} catch (IllegalStateException e) {	
+		}
 	}
 
 	// updates the window everytime the list of activities is being clicked
@@ -198,9 +202,12 @@ public class controllerTest {
 	// adds dev to specific activity in specific project
 	@FXML
 	void addDevToActivityClick(ActionEvent event) throws IOException {
-		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity)
-				.addDeveloperByInitials(initialToAddDevToActivity.getText());
-		changeScene("/projectManagement/ManageActivity.fxml");
+		try {
+			application.getProjectById(selectedProjectID).getActivityByName(selectedActivity)
+					.addDeveloperByInitials(initialToAddDevToActivity.getText());
+			changeScene("/projectManagement/ManageActivity.fxml");
+		} catch (IllegalArgumentException e) {
+		}
 	}
 
 	// marks need help for selected activity and changes the scene back to the
@@ -257,10 +264,13 @@ public class controllerTest {
 	// removes the selected dev from the activity that is being edited
 	@FXML
 	void removeDevClick(ActionEvent event) throws IOException {
-		Project project = application.getProjectById(selectedProjectID);
-		Activity activity = project.getActivityByName(selectedActivity);
-		activity.removeDeveloperByInitials(devList.getSelectionModel().getSelectedItem());
-		changeScene("/projectManagement/ManageActivity.fxml");
+		try {
+			Project project = application.getProjectById(selectedProjectID);
+			Activity activity = project.getActivityByName(selectedActivity);
+			activity.removeDeveloperByInitials(devList.getSelectionModel().getSelectedItem());
+			changeScene("/projectManagement/ManageActivity.fxml");
+		} catch (IllegalArgumentException e) {
+		}
 	}
 
 	// add an activity to the specific project
@@ -272,7 +282,9 @@ public class controllerTest {
 				application.getProjectById(selectedProjectID).addActivity(newAct);
 				changeScene("/projectManagement/ProjectWindow.fxml");
 			} catch (IllegalStateException e) {
+			} catch (IllegalArgumentException e) {
 			}
+			
 		} else if (activityName != null && startWeekForActivity.getText() != "" && endWeekForActivity.getText() != "") {
 			try {
 				int start = Integer.parseInt(startWeekForActivity.getText());
@@ -281,6 +293,7 @@ public class controllerTest {
 				application.getProjectById(selectedProjectID).addActivity(newAct);
 				changeScene("/projectManagement/ProjectWindow.fxml");
 			} catch (NumberFormatException e) {
+			} catch (IllegalArgumentException e) {
 			}
 		}
 	}
@@ -307,16 +320,19 @@ public class controllerTest {
 	// project
 	@FXML
 	void onEditActivityClick(ActionEvent event) throws IOException {
-		String selectedItem = activityList.getSelectionModel().getSelectedItem();
-		if (selectedItem.length() > 12
-				&& selectedItem.substring(selectedItem.length() - 12, selectedItem.length()).equals(" (Need help)")) {
-			selectedActivity = selectedItem.substring(0, selectedItem.length() - 12);
-		} else {
-			selectedActivity = selectedItem;
-		}
-		if (selectedItem != null) {
-			Viewer.primaryStage.setTitle(selectedActivity);
-			changeScene("/projectManagement/ManageActivity.fxml");
+		try {
+			String selectedItem = activityList.getSelectionModel().getSelectedItem();
+			if (selectedItem.length() > 12
+					&& selectedItem.substring(selectedItem.length() - 12, selectedItem.length()).equals(" (Need help)")) {
+				selectedActivity = selectedItem.substring(0, selectedItem.length() - 12);
+			} else {
+				selectedActivity = selectedItem;
+			}
+			if (selectedItem != null) {
+				Viewer.primaryStage.setTitle(selectedActivity);
+				changeScene("/projectManagement/ManageActivity.fxml");
+			}
+		} catch (NullPointerException e) {
 		}
 	}
 
@@ -346,15 +362,17 @@ public class controllerTest {
 	// creates a new project in the application
 	@FXML
 	void onCreateProjectClick(ActionEvent event) throws Exception {
-		if (!application.doesProjectExist(project_name_TF.getText())
-				&& (application.getDeveloperByInitials(project_leader_TF.getText()) != null)
-				|| project_leader_TF.getText() == "") {
-			Project projectToAdd = new Project(project_name_TF.getText());
-			application.addProject(projectToAdd);
-			application.setProjectLeaderByInitials(projectToAdd, project_leader_TF.getText());
-			changeScene("/projectManagement/mainMenu.fxml");
+		try {
+			if (!application.doesProjectExist(project_name_TF.getText())
+					&& (application.getDeveloperByInitials(project_leader_TF.getText()) != null)
+					|| project_leader_TF.getText() == "") {
+				Project projectToAdd = new Project(project_name_TF.getText());
+				application.addProject(projectToAdd);
+				application.setProjectLeaderByInitials(projectToAdd, project_leader_TF.getText());
+				changeScene("/projectManagement/mainMenu.fxml");
+			}
+		} catch (Exception e) {
 		}
-
 	}
 
 	// opens a window with a list of the projects in the application
@@ -381,11 +399,13 @@ public class controllerTest {
 	// opens a window for the selected project for the user to manage it
 	@FXML
 	void manageProjectClick(ActionEvent event) throws IOException {
-		selectedProjectIDWithName = list.getSelectionModel().getSelectedItem();
-		selectedProjectID = list.getSelectionModel().getSelectedItem().substring(0, 6);
-		Viewer.primaryStage.setTitle(selectedProjectIDWithName);
-		changeScene("/projectManagement/ProjectWindow.fxml");
-
+		try {
+			selectedProjectIDWithName = list.getSelectionModel().getSelectedItem();
+			selectedProjectID = list.getSelectionModel().getSelectedItem().substring(0, 6);
+			Viewer.primaryStage.setTitle(selectedProjectIDWithName);
+			changeScene("/projectManagement/ProjectWindow.fxml");
+		} catch (NullPointerException e) {
+		}
 	}
 
 	// changes the scene to the fxml file specifed

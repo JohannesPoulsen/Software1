@@ -42,6 +42,7 @@ public final class ProjectApplication {		//s216161
 	public void addProject(Project project) throws Exception {
 		if (!doesProjectExist(project.getName())) {
 			projects.add(project);
+			Project.setIdNumber(Project.getIdNumber() + 1);
 		} else {
 			throw new Exception("Project with specified name already exists");
 		}

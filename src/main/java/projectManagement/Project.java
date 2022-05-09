@@ -13,14 +13,14 @@ public class Project {	//s216161
 
 	public Project() {
 		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", getIdNumber());
-		setIdNumber(getIdNumber() + 1);
+		//setIdNumber(getIdNumber() + 1);
 		activities = new ArrayList<Activity>();
 	}
 
 	public Project(String name) {
 		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", getIdNumber());
 		this.name = name;
-		setIdNumber(getIdNumber() + 1);
+		//setIdNumber(getIdNumber() + 1);
 		activities = new ArrayList<Activity>();
 	}
 

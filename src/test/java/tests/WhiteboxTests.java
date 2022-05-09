@@ -63,8 +63,8 @@ public class WhiteboxTests {
 		assertTrue(application.getProjects().isEmpty());
 		application.resetProjectId();
 		Project project1 = new Project();
-		Project project2 = new Project();
 		application.addProject(project1);
+		Project project2 = new Project();
 		application.addProject(project2);
 		assertEquals(project1.getId(), "220001");
 		assertEquals(project2.getId(), "220002");

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Developer {	//s216161
 
-	String initials;
+	private String initials;
 	private Activity vacancyActivity = new Activity("vacancy"); // activity to register vacation, sickness and more to
 	private TimeRegister vacancy = new TimeRegister(vacancyActivity, this); // Tracks the time registered to vacancy
 	private ArrayList<Activity> activities = new ArrayList<Activity>(); // All activities the developers is assigned to

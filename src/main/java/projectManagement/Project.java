@@ -5,27 +5,27 @@ import java.util.List;
 
 public class Project {	//s216161
 
-	public static int idNumber = 1;
-	String id;
-	String name;
-	Developer projectLeader;
-	ArrayList<Activity> activities;
+	private static int idNumber = 1;
+	private String id;
+	private String name;
+	private Developer projectLeader;
+	private ArrayList<Activity> activities;
 
 	public Project() {
-		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", idNumber);
-		idNumber++;
+		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", getIdNumber());
+		setIdNumber(getIdNumber() + 1);
 		activities = new ArrayList<Activity>();
 	}
 
 	public Project(String name) {
-		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", idNumber);
+		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", getIdNumber());
 		this.name = name;
-		idNumber++;
+		setIdNumber(getIdNumber() + 1);
 		activities = new ArrayList<Activity>();
 	}
 
 	public Project(Developer projectLeader) {
-		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", idNumber);
+		this.id = DateServer.getYear().substring(2, 4) + String.format("%04d", getIdNumber());
 		this.projectLeader = projectLeader;
 		activities = new ArrayList<Activity>();
 	}
@@ -82,6 +82,14 @@ public class Project {	//s216161
 
 	public void endActivityByName(String name) {
 		activities.remove(getActivityByName(name));
+	}
+
+	public static int getIdNumber() {
+		return idNumber;
+	}
+
+	public static void setIdNumber(int idNumber) {
+		Project.idNumber = idNumber;
 	}
 
 }

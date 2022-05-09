@@ -18,23 +18,23 @@ public class WhiteboxTests {
 	// White box test for getDeveloperByInitials
 	@Test
 	public void testGetDeveloperByInitialsDataSetA() {
-		application.developers = new ArrayList<Developer>();
+		application.setDevelopers(new ArrayList<Developer>());
 		assertEquals(application.getDeveloperByInitials("huba"), null);
 	}
 
 	@Test
 	public void testGetDeveloperByInitialsDataSetB() {
-		application.developers = new ArrayList<Developer>();
+		application.setDevelopers(new ArrayList<Developer>());
 		Developer developer = new Developer("joe");
-		application.developers.add(developer);
+		application.getDevelopers().add(developer);
 		assertEquals(application.getDeveloperByInitials("huba"), null);
 	}
 
 	@Test
 	public void testGetDeveloperByInitialsDataSetC() {
-		application.developers = new ArrayList<Developer>();
+		application.setDevelopers(new ArrayList<Developer>());
 		Developer developer = new Developer("huba");
-		application.developers.add(developer);
+		application.getDevelopers().add(developer);
 		assertEquals(application.getDeveloperByInitials("huba"), developer);
 	}
 

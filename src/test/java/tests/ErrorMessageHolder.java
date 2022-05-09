@@ -1,7 +1,7 @@
 package tests;
 
 public class ErrorMessageHolder {
-	String errorMessage = "";
+	private String errorMessage = "";
 	
 	public String getErrorMessage() {
 		return errorMessage;

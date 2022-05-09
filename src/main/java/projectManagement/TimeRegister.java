@@ -3,9 +3,9 @@ package projectManagement;
 public class TimeRegister { 	//s204399
 	// Keeps track of time registered to an activity for a given developer
 
-	Activity activity;
-	Developer developer;
-	double time = 0;
+	private Activity activity;
+	private Developer developer;
+	private double time = 0;
 
 	public TimeRegister(Activity activity, Developer developer) {
 		this.activity = activity;

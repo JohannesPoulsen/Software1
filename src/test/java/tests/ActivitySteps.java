@@ -15,10 +15,10 @@ import projectManagement.Project;
 
 public class ActivitySteps {
 
-	ProjectApplication application;
-	Project project;
-	Activity activity;
-	ErrorMessageHolder errorMessage;
+	private ProjectApplication application;
+	private Project project;
+	private Activity activity;
+	private ErrorMessageHolder errorMessage;
 
 	public ActivitySteps(ProjectApplication application, ErrorMessageHolder errorMessage) {
 		this.application = application.getInstance();

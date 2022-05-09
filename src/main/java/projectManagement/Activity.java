@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Activity {	//s216161
 
-	Project project; // Project that the activity is part of
-	ArrayList<Developer> developers = new ArrayList<Developer>(); // developers assigned to the activity
-	String name;
-	int start, end; // Start and end week
+	private Project project; // Project that the activity is part of
+	private ArrayList<Developer> developers = new ArrayList<Developer>(); // developers assigned to the activity
+	private String name;
+	private int start, end; // Start and end week
 	private double expectedHourUsage;
 	private boolean needingHelp = false;
 

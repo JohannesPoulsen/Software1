@@ -17,11 +17,11 @@ import javafx.scene.input.MouseEvent;
 
 public class controllerTest {
 
-	ProjectApplication application = ProjectApplication.getInstance();
-	static String selectedProjectID;
-	static String selectedProjectIDWithName;
-	static String selectedActivity;
-	static Developer developerForTimeReg = null;
+	private ProjectApplication application = ProjectApplication.getInstance();
+	private static String selectedProjectID;
+	private static String selectedProjectIDWithName;
+	private static String selectedActivity;
+	private static Developer developerForTimeReg = null;
 	@FXML
 	private Label currentProjectLeaderLabel = new Label();
 	@FXML

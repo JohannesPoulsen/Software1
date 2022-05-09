@@ -17,25 +17,25 @@ public final class ProjectApplication {		//s216161
 	}
 
 	// developers in the application
-	Developer tester1 = new Developer("huba");
-	Developer tester2 = new Developer("olwi");
-	Developer tester3 = new Developer("soko");
-	Developer tester4 = new Developer("maha");
-	Developer tester5 = new Developer("jopo");
+	private Developer tester1 = new Developer("huba");
+	private Developer tester2 = new Developer("olwi");
+	private Developer tester3 = new Developer("soku");
+	private Developer tester4 = new Developer("maha");
+	private Developer tester5 = new Developer("jopo");
 	//
-	public ArrayList<Developer> developers;
+	private ArrayList<Developer> developers;
 
 	private final ArrayList<Project> projects;
 
 	public ProjectApplication() {
 		projects = new ArrayList<Project>();
-		developers = new ArrayList<Developer>();
+		setDevelopers(new ArrayList<Developer>());
 		//developers added to the application
-		developers.add(tester1);
-		developers.add(tester2);
-		developers.add(tester3);
-		developers.add(tester4);
-		developers.add(tester5);
+		getDevelopers().add(tester1);
+		getDevelopers().add(tester2);
+		getDevelopers().add(tester3);
+		getDevelopers().add(tester4);
+		getDevelopers().add(tester5);
 		
 	}
 
@@ -60,7 +60,7 @@ public final class ProjectApplication {		//s216161
 	}
 
 	public boolean doesProjectExist(String name) {// checks whether a project exists with the specified name
-		assert (projects != null && name != "") : "Precondition";
+		assert (projects != null) : "Precondition";
 		for (Project p : projects) {
 			if (p.getName() != null && (p.getName().equals(name) && !p.getName().equals(""))) {
 				assert p.getName().equals(name) && projects.contains(p): "Postcondition";
@@ -73,18 +73,18 @@ public final class ProjectApplication {		//s216161
 
 	public Developer getDeveloperByInitials(String initials) {
 		Developer developer = null;
-		assert developers != null && initials != null : "Precondition";
-		for (Developer d : developers) {// 1
+		assert getDevelopers() != null && initials != null : "Precondition";
+		for (Developer d : getDevelopers()) {// 1
 			if (d.getInitials().equals(initials)) { // 2
 				developer = d;
 			}
 		}
-		assert developers.contains(developer) || developer == null : "Postcondition";
+		assert getDevelopers().contains(developer) || developer == null : "Postcondition";
 		return developer;
 	}
 
 	public void resetProjectId() { // Used when the id number of new projects needs to be reset
-		Project.idNumber = 1;
+		Project.setIdNumber(1);
 	}
 
 	public void clearProjects() { // Removes all current projects
@@ -117,6 +117,14 @@ public final class ProjectApplication {		//s216161
 		} else {
 			throw new IllegalStateException("Project with specified ID does not exist");
 		}
+	}
+
+	public ArrayList<Developer> getDevelopers() {
+		return developers;
+	}
+
+	public void setDevelopers(ArrayList<Developer> developers) {
+		this.developers = developers;
 	}
 
 }

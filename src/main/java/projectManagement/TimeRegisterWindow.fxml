@@ -25,7 +25,10 @@
       </Label>
       <Label fx:id="currentDevTimeRegLabel" layoutX="217.0" layoutY="46.0" prefHeight="17.0" prefWidth="100.0" />
       <Label fx:id="timeForActivityLabel" layoutX="217.0" layoutY="80.0" prefHeight="17.0" prefWidth="100.0" />
-      <Label layoutX="217.0" layoutY="168.0" prefHeight="17.0" prefWidth="100.0" text="Total time spent:" />
+      <Label layoutX="217.0" layoutY="168.0" prefHeight="17.0" prefWidth="100.0" text="Total time spent:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
       <Label fx:id="totalTimeLabel" layoutX="217.0" layoutY="185.0" prefHeight="17.0" prefWidth="100.0" />
    </children>
 </AnchorPane>

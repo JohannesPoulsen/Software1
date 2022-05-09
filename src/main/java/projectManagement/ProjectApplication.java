@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public final class ProjectApplication {		//s216161
+public final class ProjectApplication {		
 
 	private static ProjectApplication instance;
 
@@ -38,8 +38,8 @@ public final class ProjectApplication {		//s216161
 		getDevelopers().add(tester5);
 		
 	}
-
-	public void addProject(Project project) throws Exception {
+	//s216161
+	public void addProject(Project project) throws Exception { 
 		if (!doesProjectExist(project.getName())) {
 			projects.add(project);
 			Project.setIdNumber(Project.getIdNumber() + 1);
@@ -47,7 +47,7 @@ public final class ProjectApplication {		//s216161
 			throw new Exception("Project with specified name already exists");
 		}
 	}
-
+	//s216161
 	public boolean projectExistsWithId(String id) { // checks whether a project exists with the specified id
 		assert id != null && ProjectApplication.getInstance().projects != null : "precondition failed";
 		for (Project p : projects) { // 1
@@ -59,7 +59,7 @@ public final class ProjectApplication {		//s216161
 		assert !projects.contains(getProjectById(id)) : "postcondition failed";
 		return false; // 3
 	}
-
+	//s214962
 	public boolean doesProjectExist(String name) {// checks whether a project exists with the specified name
 		assert (projects != null) : "Precondition";
 		for (Project p : projects) {
@@ -71,7 +71,7 @@ public final class ProjectApplication {		//s216161
 		//assert projects.stream().filter(p -> p.getName() != null || p.getName() != "").filter(p -> p.getName() == name).collect(Collectors.toList()).isEmpty() : "Postcondition";
 		return false;
 	}
-
+	//s204399
 	public Developer getDeveloperByInitials(String initials) {
 		Developer developer = null;
 		assert getDevelopers() != null && initials != null : "Precondition";
@@ -99,7 +99,7 @@ public final class ProjectApplication {		//s216161
 	public void setProjectLeaderByInitials(Project project, String initials) {
 		project.setProjectLeader(getDeveloperByInitials(initials));
 	}
-
+	//s214929
 	public Project getProjectById(String id) {
 		Project project = null;
 		assert id != null : "Precondition";
@@ -111,7 +111,7 @@ public final class ProjectApplication {		//s216161
 		assert projects.contains(project) || project == null : "Postcondition";
 		return project;
 	}
-
+	//s204399
 	public void endProject(Project project) {
 		if (projects.contains(project)) {
 			projects.remove(project);

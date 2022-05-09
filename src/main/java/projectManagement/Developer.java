@@ -3,7 +3,7 @@ package projectManagement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Developer {	//s216161
+public class Developer {	//s204399 and s214929
 
 	private String initials;
 	private Activity vacancyActivity = new Activity("vacancy"); // activity to register vacation, sickness and more to

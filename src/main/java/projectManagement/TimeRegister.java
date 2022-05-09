@@ -1,6 +1,6 @@
 package projectManagement;
 
-public class TimeRegister { 	//s204399
+public class TimeRegister { 	//s204399 an s214929
 	// Keeps track of time registered to an activity for a given developer
 
 	private Activity activity;

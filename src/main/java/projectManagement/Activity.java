@@ -3,7 +3,7 @@ package projectManagement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity {	//s216161
+public class Activity {	//s216161 and s214962
 
 	private Project project; // Project that the activity is part of
 	private ArrayList<Developer> developers = new ArrayList<Developer>(); // developers assigned to the activity

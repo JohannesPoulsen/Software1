@@ -346,7 +346,9 @@ public class controllerTest {
 	// creates a new project in the application
 	@FXML
 	void onCreateProjectClick(ActionEvent event) throws Exception {
-		if (!application.doesProjectExist(project_name_TF.getText())) {
+		if (!application.doesProjectExist(project_name_TF.getText())
+				&& (application.getDeveloperByInitials(project_leader_TF.getText()) != null)
+				|| project_leader_TF.getText() == "") {
 			Project projectToAdd = new Project(project_name_TF.getText());
 			application.addProject(projectToAdd);
 			application.setProjectLeaderByInitials(projectToAdd, project_leader_TF.getText());

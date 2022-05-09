@@ -10,7 +10,7 @@
       <Button layoutX="16.0" layoutY="149.0" mnemonicParsing="false" onAction="#openProjectWindowClick" prefHeight="120.0" prefWidth="179.0" text="Create A New Project" />
       <Button layoutX="232.0" layoutY="149.0" mnemonicParsing="false" onAction="#openManageProjectsClick" prefHeight="120.0" prefWidth="179.0" text="Manage Projects" />
       <Button layoutX="449.0" layoutY="149.0" mnemonicParsing="false" onAction="#openRegisterTimeClick" prefHeight="120.0" prefWidth="179.0" text="Register Time" />
-      <Label layoutX="105.0" layoutY="72.0" prefHeight="37.0" prefWidth="433.0" text="Welcome to Project Management!">
+      <Label layoutX="106.0" layoutY="68.0" prefHeight="37.0" prefWidth="544.0" text="Welcome to Project Management!">
          <font>
             <Font size="30.0" />
          </font>

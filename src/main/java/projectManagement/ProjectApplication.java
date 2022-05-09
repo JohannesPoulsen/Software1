@@ -2,11 +2,13 @@ package projectManagement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class ProjectApplication {		//s216161
 
 	private static ProjectApplication instance;
-
+	
 	public static ProjectApplication getInstance() { // Singleton af vores program
 		if (instance == null) {
 			instance = new ProjectApplication();
@@ -50,12 +52,15 @@ public final class ProjectApplication {		//s216161
 		return false; // 3
 	}
 
-	public boolean doesProjectExist(String name) { // checks whether a project exists with the specified name
+	public boolean doesProjectExist(String name) {// checks whether a project exists with the specified name
+		assert (projects != null && name != "") : "Precondition";
 		for (Project p : projects) {
 			if (p.getName() != null && (p.getName().equals(name) && !p.getName().equals(""))) {
+				assert p.getName().equals(name) && projects.contains(p): "Postcondition";
 				return true;
 			}
 		}
+		assert projects.stream().filter(p -> p.getName() != null).filter(p -> p.getName() == name).collect(Collectors.toList()).isEmpty() : "Postcondition";
 		return false;
 	}
 

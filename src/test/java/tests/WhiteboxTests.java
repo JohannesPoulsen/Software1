@@ -100,4 +100,35 @@ public class WhiteboxTests {
 		assertEquals(application.getProjectById("220001"), project);
 
 	}
+		
+		// White box test for doesProjectExist
+		@Test
+		public void testDoesProjectExistA() throws Exception {
+			application.clearProjects();
+			assertTrue(application.getProjects().isEmpty());
+			Project project = new Project();
+			application.addProject(project);
+			assertFalse(application.doesProjectExist("testName"));
+		}
+		
+		@Test
+		public void testDoesProjectExistB() throws Exception {
+			application.clearProjects();
+			assertTrue(application.getProjects().isEmpty());
+			Project project = new Project("testName");
+			application.addProject(project);
+			assertTrue(application.doesProjectExist("testName"));
+		}
+		
+		@Test
+		public void testDoesProjectExistC() throws Exception {
+			application.clearProjects();
+			assertTrue(application.getProjects().isEmpty());
+			Project project = new Project("testName");
+			application.addProject(project);
+			assertFalse(application.doesProjectExist("notWorkingtestName"));
+		}
+		
+		
+	
 }

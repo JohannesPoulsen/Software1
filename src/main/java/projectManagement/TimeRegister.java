@@ -30,6 +30,9 @@ public class TimeRegister { 	//s204399
 
 	public void add(Double hours) {
 		this.time += hours;
+		if (this.time < 0) {
+			this.time = 0;
+		}
 	}
 
 	public double getTime() {
@@ -38,6 +41,9 @@ public class TimeRegister { 	//s204399
 
 	public void setTime(double time) {
 		this.time = time;
+		if (this.time < 0) {
+			this.time = 0;
+		}
 	}
 
 }

@@ -224,17 +224,23 @@ public class controllerTest {
 	// changes the end week for activity when editing the activity
 	@FXML
 	void changeEndForActivityClick(ActionEvent event) throws IOException {
-		int end = Integer.parseInt(weekForChangeEnd.getText());
-		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setEnd(end);
-		changeScene("/projectManagement/ManageActivity.fxml");
+		try {
+			int end = Integer.parseInt(weekForChangeEnd.getText());
+			application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setEnd(end);
+			changeScene("/projectManagement/ManageActivity.fxml");
+		} catch (NumberFormatException e) {
+		}
 	}
 
 	// changes the start week for activity when editing the activity
 	@FXML
 	void changeStartForAcvityClick(ActionEvent event) throws IOException {
-		int start = Integer.parseInt(weekForChangeStart.getText());
-		application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setStart(start);
-		changeScene("/projectManagement/ManageActivity.fxml");
+		try {
+			int start = Integer.parseInt(weekForChangeStart.getText());
+			application.getProjectById(selectedProjectID).getActivityByName(selectedActivity).setStart(start);
+			changeScene("/projectManagement/ManageActivity.fxml");
+		} catch (NumberFormatException e) {
+		}
 	}
 
 	// ends the activity that is being edited
@@ -261,15 +267,21 @@ public class controllerTest {
 	@FXML
 	void onAddActivityClick(ActionEvent event) throws IOException {
 		if (activityName != null && startWeekForActivity.getText() == "" && endWeekForActivity.getText() == "") {
-			Activity newAct = new Activity(activityName.getText());
-			application.getProjectById(selectedProjectID).addActivity(newAct);
-			changeScene("/projectManagement/ProjectWindow.fxml");
+			try {
+				Activity newAct = new Activity(activityName.getText());
+				application.getProjectById(selectedProjectID).addActivity(newAct);
+				changeScene("/projectManagement/ProjectWindow.fxml");
+			} catch (IllegalStateException e) {
+			}
 		} else if (activityName != null && startWeekForActivity.getText() != "" && endWeekForActivity.getText() != "") {
-			int start = Integer.parseInt(startWeekForActivity.getText());
-			int end = Integer.parseInt(endWeekForActivity.getText());
-			Activity newAct = new Activity(activityName.getText(), start, end);
-			application.getProjectById(selectedProjectID).addActivity(newAct);
-			changeScene("/projectManagement/ProjectWindow.fxml");
+			try {
+				int start = Integer.parseInt(startWeekForActivity.getText());
+				int end = Integer.parseInt(endWeekForActivity.getText());
+				Activity newAct = new Activity(activityName.getText(), start, end);
+				application.getProjectById(selectedProjectID).addActivity(newAct);
+				changeScene("/projectManagement/ProjectWindow.fxml");
+			} catch (NumberFormatException e) {
+			}
 		}
 	}
 

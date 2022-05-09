@@ -68,7 +68,7 @@ public final class ProjectApplication {
 				return true;
 			}
 		}
-		//assert projects.stream().filter(p -> p.getName() != null || p.getName() != "").filter(p -> p.getName() == name).collect(Collectors.toList()).isEmpty() : "Postcondition";
+		assert projects.stream().filter(p -> p.getName() != "").filter(p -> p.getName() == name).collect(Collectors.toList()).isEmpty() : "Postcondition";
 		return false;
 	}
 	//s204399
